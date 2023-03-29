@@ -18,6 +18,16 @@
     "types": ["node"],
     "baseUrl": "src",
     "paths": {
+      "@images/*": ["./src/assets/images/*"],
+      "@scss/*": ["./src/assets/scss/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@libs/*": ["./src/libs/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@types/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"]
     }
   },

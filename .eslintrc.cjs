@@ -26,6 +26,24 @@ module.exports = {
     react: {
       version: 'detect',
     },
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@images/*', './src/assets/images/*'],
+          ['@scss/*', './src/assets/scss/*'],
+          ['@assets/*', './src/assets/*'],
+          ['@components/*', './src/components/*'],
+          ['@hooks/*', './src/hooks/*'],
+          ['@layouts/*', './src/layouts/*'],
+          ['@libs/*', './src/libs/*'],
+          ['@pages/*', './src/pages/*'],
+          ['@types/*', './src/types/*'],
+          ['@utils/*', './src/utils/*'],
+          ['@/*', './src'],
+        ],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
   plugins: [
     'react',
@@ -50,6 +68,22 @@ module.exports = {
           ['^.+\\.(gif|jpe?g|tiff?|png|webp|bmp)$'],
           // {s}css files
           ['^.+\\.s?css$'],
+          // assets
+          ['^@images', '^@scss', '^@assets'],
+          // components
+          ['^@components'],
+          // hooks
+          ['^@hooks'],
+          // layouts
+          ['^@layouts'],
+          // libs
+          ['^@libs'],
+          // pages
+          ['^@pages'],
+          // types
+          ['^@types'],
+          // utils
+          ['^@utils'],
           // relative paths up until 3 level
           [
             '^\\./?$',

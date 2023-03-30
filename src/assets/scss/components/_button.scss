@@ -1,0 +1,75 @@
+.btn {
+  @apply relative m-0 inline-flex flex-shrink-0 cursor-pointer select-none appearance-none items-center justify-center whitespace-nowrap rounded-md align-middle font-medium leading-tight outline-none duration-75 ease-out focus:outline-none;
+
+  &.xs {
+    @apply h-7 min-w-[1.75rem] px-2 text-xs leading-4;
+  }
+
+  &.sm {
+    @apply h-8 min-h-[2rem] px-4 text-sm leading-5;
+  }
+
+  &.md {
+    @apply h-9 min-h-[2.25rem] px-5 text-base leading-5;
+  }
+
+  &.lg {
+    @apply h-11 min-h-[2.75rem] px-6 text-base leading-6;
+  }
+
+  &.xl {
+    @apply h-[3.125rem] min-h-[3.125rem] px-8 text-lg;
+  }
+
+  &.disabled {
+    @apply disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none;
+  }
+
+  &.fluid {
+    @apply w-full;
+  }
+
+  &.rounded {
+    @apply rounded-full;
+  }
+
+  &.icon-only {
+    @apply p-2;
+  }
+
+  &.solid {
+    @apply border border-neutral-200 bg-neutral-100 text-neutral-900 shadow-sm hover:border-neutral-300 hover:bg-neutral-200 focus:border-gray-500 focus:ring-1 focus:ring-gray-500 active:bg-neutral-300;
+
+    &[data-color='primary'] {
+      @apply border-blue-600 bg-blue-500 text-white hover:bg-blue-600 focus:border-blue-500 focus:bg-blue-700 focus:ring-blue-500 active:bg-blue-600;
+    }
+
+    &[data-color='success'] {
+      @apply border-emerald-600 bg-emerald-700 text-white hover:bg-emerald-800 focus:border-emerald-700 focus:bg-emerald-700 focus:ring-emerald-700 active:bg-emerald-700;
+    }
+  }
+
+  &.outline {
+    @apply border border-neutral-200 bg-transparent text-neutral-900 shadow-sm hover:border-neutral-300 hover:bg-neutral-100 focus:border-gray-500 focus:ring-1 focus:ring-gray-500 active:bg-neutral-200;
+
+    &[data-color='primary'] {
+      @apply border-current bg-transparent text-blue-600 hover:bg-blue-50 focus:border-blue-500 focus:ring-blue-500 active:bg-blue-100;
+    }
+  }
+
+  &.ghost {
+    @apply bg-transparent text-neutral-900 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:bg-neutral-200;
+
+    &[data-color='primary'] {
+      @apply text-blue-600 hover:bg-blue-50 focus:ring-blue-500 active:bg-blue-100;
+    }
+  }
+
+  &.light {
+    @apply border border-transparent bg-neutral-100 text-neutral-900 shadow-sm hover:bg-neutral-200 focus:border-gray-500 focus:ring-1 focus:ring-gray-500;
+
+    &[data-color='primary'] {
+      @apply bg-blue-50 text-blue-600 hover:bg-blue-100 focus:border-blue-500 focus:ring-blue-500 active:bg-blue-200;
+    }
+  }
+}

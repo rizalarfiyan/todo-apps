@@ -2,4 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+// Base styles
 @import 'base';
+
+// Components
+@import 'components/button';

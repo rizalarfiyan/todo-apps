@@ -37,8 +37,8 @@ export default defineConfig({
         replacement: path.resolve(__dirname, './src/libs'),
       },
       {
-        find: '@pages',
-        replacement: path.resolve(__dirname, './src/pages'),
+        find: '@features',
+        replacement: path.resolve(__dirname, './src/features'),
       },
       {
         find: '@types',

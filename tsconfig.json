@@ -25,7 +25,7 @@
       "@hooks/*": ["hooks/*"],
       "@layouts/*": ["layouts/*"],
       "@libs/*": ["libs/*"],
-      "@pages/*": ["pages/*"],
+      "@features/*": ["features/*"],
       "@types/*": ["types/*"],
       "@utils/*": ["utils/*"],
       "@/*": ["*"]

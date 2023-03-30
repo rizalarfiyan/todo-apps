@@ -36,7 +36,7 @@ module.exports = {
           ['@hooks/*', './src/hooks/*'],
           ['@layouts/*', './src/layouts/*'],
           ['@libs/*', './src/libs/*'],
-          ['@pages/*', './src/pages/*'],
+          ['@features/*', './src/features/*'],
           ['@types/*', './src/types/*'],
           ['@utils/*', './src/utils/*'],
           ['@/*', './src'],
@@ -78,8 +78,8 @@ module.exports = {
           ['^@layouts'],
           // libs
           ['^@libs'],
-          // pages
-          ['^@pages'],
+          // features
+          ['^@features'],
           // types
           ['^@types'],
           // utils

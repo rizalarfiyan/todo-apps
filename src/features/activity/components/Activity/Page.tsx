@@ -3,9 +3,19 @@ import React from 'react'
 import Button from '@components/Button'
 import Icon from '@components/Icon'
 
+import useActivityList from '@features/activity/services/useGetActivityList'
+
 import Empty from './Empty'
 
+import { ACTIVITY_GROUP } from '@/constants'
+
 const Page = () => {
+  const { data, error, isLoading, isError } = useActivityList({
+    email: ACTIVITY_GROUP,
+  })
+
+  const isEmpty = data?.data.length === 0
+
   return (
     <div className='container space-y-20'>
       <div className='flex items-center justify-between gap-3'>
@@ -21,7 +31,15 @@ const Page = () => {
           Add
         </Button>
       </div>
-      <Empty className='mx-auto h-auto w-full max-w-xl' />
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : isError ? (
+        <div>Error... {JSON.stringify(error)}</div>
+      ) : isEmpty ? (
+        <Empty className='mx-auto h-auto w-full max-w-xl' />
+      ) : (
+        JSON.stringify(data)
+      )}
     </div>
   )
 }

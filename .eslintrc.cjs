@@ -38,6 +38,7 @@ module.exports = {
           ['@libs/*', './src/libs/*'],
           ['@features/*', './src/features/*'],
           ['@utils/*', './src/utils/*'],
+          ['@dto/*', './src/types/DTO/*'],
           ['@/*', './src'],
         ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -79,8 +80,8 @@ module.exports = {
           ['^@libs'],
           // features
           ['^@features'],
-          // types
-          ['^@/types'],
+          // types and dto
+          ['^@/types', '^@dto'],
           // utils
           ['^@utils'],
           // relative paths up until 3 level

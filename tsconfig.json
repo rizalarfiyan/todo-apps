@@ -27,6 +27,7 @@
       "@libs/*": ["libs/*"],
       "@features/*": ["features/*"],
       "@utils/*": ["utils/*"],
+      "@dto/*": ["types/DTO/*"],
       "@/*": ["*"]
     }
   },

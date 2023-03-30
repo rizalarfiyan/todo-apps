@@ -45,6 +45,10 @@ export default defineConfig({
         replacement: path.resolve(__dirname, './src/utils'),
       },
       {
+        find: '@dto',
+        replacement: path.resolve(__dirname, './src/types/DTO'),
+      },
+      {
         find: '@',
         replacement: path.resolve(__dirname, './src'),
       },

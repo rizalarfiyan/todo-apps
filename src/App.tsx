@@ -1,15 +1,17 @@
 import React, { Suspense } from 'react'
+import { RouterProvider } from 'react-router-dom'
 
 import LoadingScreen from '@components/LoadingScreen'
-import Spinner from '@components/Spinner'
+
+import router from './routes'
 
 function App() {
   return (
     <Suspense fallback={<LoadingScreen reason='Initial app' />}>
-      <div className='flex min-h-screen w-full items-center justify-center'>
-        <h1 className='text-4xl font-semibold text-gray-800'>Todo Apps</h1>
-        <Spinner />
-      </div>
+      <RouterProvider
+        router={router}
+        fallbackElement={<LoadingScreen reason='Loading routes' />}
+      />
     </Suspense>
   )
 }

@@ -26,7 +26,6 @@
       "@layouts/*": ["layouts/*"],
       "@libs/*": ["libs/*"],
       "@features/*": ["features/*"],
-      "@types/*": ["types/*"],
       "@utils/*": ["utils/*"],
       "@/*": ["*"]
     }

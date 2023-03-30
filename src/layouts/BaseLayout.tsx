@@ -1,10 +1,28 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
+import Navigation from '@components/Navigation'
+
+import { APP_TITLE } from '@/constants'
+
 const BaseLayout = (): JSX.Element => {
   return (
     <>
-      <Outlet />
+      <header>
+        <Navigation
+          title={APP_TITLE}
+          isFixed
+          links={[
+            {
+              link: 'https://google.com/',
+              name: 'Google',
+            },
+          ]}
+        />
+      </header>
+      <main>
+        <Outlet />
+      </main>
     </>
   )
 }

@@ -41,10 +41,6 @@ export default defineConfig({
         replacement: path.resolve(__dirname, './src/features'),
       },
       {
-        find: '@types',
-        replacement: path.resolve(__dirname, './src/types'),
-      },
-      {
         find: '@utils',
         replacement: path.resolve(__dirname, './src/utils'),
       },

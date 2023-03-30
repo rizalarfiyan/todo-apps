@@ -37,7 +37,6 @@ module.exports = {
           ['@layouts/*', './src/layouts/*'],
           ['@libs/*', './src/libs/*'],
           ['@features/*', './src/features/*'],
-          ['@types/*', './src/types/*'],
           ['@utils/*', './src/utils/*'],
           ['@/*', './src'],
         ],
@@ -81,7 +80,7 @@ module.exports = {
           // features
           ['^@features'],
           // types
-          ['^@types'],
+          ['^@/types'],
           // utils
           ['^@utils'],
           // relative paths up until 3 level

@@ -1,3 +1,3 @@
-export * from './useCreateActivity'
-export * from './useDeleteActivity'
-export * from './useGetActivityList'
+export * from './createActivity'
+export * from './deleteActivity'
+export * from './getActivityList'

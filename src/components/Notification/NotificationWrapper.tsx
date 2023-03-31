@@ -23,6 +23,26 @@ const NotificationWrapper: React.FC<NotificationWrapperProps> = (props) => {
     })
   }
 
+  const animation = {
+    mount: {
+      opacity: 0,
+      y: 50,
+      scale: 0.3,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+    },
+    unmount: {
+      opacity: 0,
+      scale: 0.5,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  }
+
   return (
     <div className={clsx(classes, className)} {...rest}>
       <div className='fade pointer-events-none mr-8 w-full flex-1 flex-col justify-end'>
@@ -32,9 +52,10 @@ const NotificationWrapper: React.FC<NotificationWrapperProps> = (props) => {
               <motion.div
                 key={val.id}
                 layout
-                initial={{ opacity: 0, y: 50, scale: 0.3 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+                initial='mount'
+                animate='animate'
+                exit='unmount'
+                variants={animation}
               >
                 <div className='pointer-events-auto flex w-full py-1'>
                   <NotificationMessage

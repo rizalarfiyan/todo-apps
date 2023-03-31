@@ -24,7 +24,7 @@ const Navigation = forwardRef<HTMLDivElement, NavigationProps>((props, ref) => {
     <nav
       ref={ref}
       className={clsx(
-        'z-50 w-full bg-blue-500 py-8 shadow-lg transition-all duration-300 ease-in-out',
+        'z-30 w-full bg-blue-500 py-8 shadow-lg transition-all duration-300 ease-in-out',
         isFixed && 'fixed',
         isActive && '!py-3'
       )}

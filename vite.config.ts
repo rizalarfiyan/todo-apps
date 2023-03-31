@@ -9,6 +9,7 @@ const manualChunks = {
   utility: ['clsx', 'dayjs'],
   'react-query': ['@tanstack/react-query', '@tanstack/react-query-devtools'],
   'framer-motion': ['framer-motion'],
+  'floating-ui': ['@floating-ui/react-dom-interactions'],
 }
 
 // https://vitejs.dev/config/

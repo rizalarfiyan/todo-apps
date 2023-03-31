@@ -1,0 +1,53 @@
+.modal-container {
+  @apply flex items-center justify-center px-5 py-10;
+
+  &.scrollable {
+    @apply h-full overflow-hidden;
+  }
+}
+
+.modal-overlay {
+  @apply fixed inset-0 h-full w-full bg-gray-900 bg-opacity-50;
+}
+
+.modal {
+  @apply relative z-50 w-full rounded-xl bg-white shadow;
+
+  &.xs {
+    @apply max-w-md;
+  }
+
+  &.sm {
+    @apply max-w-lg;
+  }
+
+  &.md {
+    @apply max-w-2xl;
+  }
+
+  &.lg {
+    @apply max-w-4xl;
+  }
+
+  &.xl {
+    @apply max-w-6xl;
+  }
+
+  .modal-header {
+    @apply flex items-center justify-between rounded-t border-b p-5;
+  }
+
+  .modal-body {
+    @apply space-y-6 p-6;
+
+    &.scrollable {
+      max-height: calc(100vh - 300px);
+
+      @apply overflow-auto;
+    }
+  }
+
+  .modal-footer {
+    @apply flex items-center justify-end space-x-2 rounded-b border-t border-gray-200 p-4;
+  }
+}

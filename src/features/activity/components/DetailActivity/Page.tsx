@@ -6,15 +6,24 @@ import Button from '@components/Button'
 import Error from '@components/Error'
 import Icon from '@components/Icon'
 
+import useDisclosure from '@hooks/useDisclosure'
+
 import { useActivityDetail } from '@features/activity/services'
 
 import { isNotFound } from '@utils/base'
 
 import Empty from './Empty'
+import TodoModal from './TodoModal'
 
 const Page = () => {
   const { id } = useParams()
   const activityDetail = useActivityDetail(id as string)
+  const modal = useDisclosure()
+
+  const handleCreateTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    modal.open()
+  }
 
   if (isNotFound(activityDetail)) {
     return (
@@ -33,6 +42,7 @@ const Page = () => {
 
   return (
     <div className='container space-y-20'>
+      <TodoModal modal={modal} />
       <div className='flex items-center justify-between gap-3'>
         <h2 className='text-4xl font-semibold text-gray-800'>New Activity</h2>
         <Button
@@ -42,6 +52,7 @@ const Page = () => {
           color='primary'
           size='lg'
           disabled={activityDetail.isLoading}
+          onClick={handleCreateTodo}
           isRounded
         >
           Tambah

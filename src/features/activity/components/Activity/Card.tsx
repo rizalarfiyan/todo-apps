@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import Button from '@components/Button'
 import Icon from '@components/Icon'
@@ -7,7 +8,10 @@ import { useDeleteActivity } from '@features/activity/services'
 
 import { ActivityItemDTO } from '@dto/activity'
 
+import { routeReplace } from '@utils/base'
 import { parseDate } from '@utils/datetime'
+
+import { ROUTE } from '@/constants'
 
 const Card: React.FC<{
   activity: ActivityItemDTO
@@ -26,14 +30,16 @@ const Card: React.FC<{
   return (
     <div className='w-[280px] rounded-md bg-white p-5 shadow-md'>
       <div className='h-44'>
-        <h3 className='line-clamp-6 text-lg font-semibold text-gray-800'>
-          {title}
-        </h3>
+        <Link to={routeReplace(ROUTE.detailActivity, id)}>
+          <h3 className='line-clamp-6 text-lg font-semibold text-gray-800'>
+            {title}
+          </h3>
+        </Link>
       </div>
       <div className='mt-2 flex items-center justify-between text-gray-600'>
         <div>{parseDate(created_at)}</div>
         <Button
-          variant='outline'
+          variant='light'
           type='button'
           isIcon
           onClick={handleDeleteActivity}

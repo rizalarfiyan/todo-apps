@@ -7,6 +7,7 @@ import { useActivityList, useCreateActivity } from '@features/activity/services'
 
 import Card from './Card'
 import Empty from './Empty'
+import Skeleton from './Skeleton'
 
 import { ACTIVITY_GROUP } from '@/constants'
 
@@ -49,7 +50,11 @@ const Page = () => {
       </div>
       <div className='my-20'>
         {activityList.isLoading ? (
-          <div>Loading...</div>
+          <div className='flex flex-wrap items-center justify-center gap-5'>
+            {Array.from({ length: 12 }).map((_, idx) => {
+              return <Skeleton key={idx} />
+            })}
+          </div>
         ) : activityList.isError ? (
           <div>Error... {JSON.stringify(activityList.error)}</div>
         ) : isEmpty ? (

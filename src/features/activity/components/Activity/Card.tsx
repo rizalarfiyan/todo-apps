@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 import Button from '@components/Button'
 import Icon from '@components/Icon'
 
+import useConfirmation from '@hooks/useConfirmation'
 import { useNotification } from '@hooks/useNotification'
 
 import { useDeleteActivity } from '@features/activity/services'
 
 import { ActivityItemDTO } from '@dto/activity'
 
-import { routeReplace } from '@utils/base'
+import { routeReplace, truncate } from '@utils/base'
 import { parseDate } from '@utils/datetime'
 
 import { ROUTE } from '@/constants'
@@ -20,21 +21,37 @@ const Card: React.FC<{
 }> = ({ activity: { id, title, created_at } }) => {
   const notification = useNotification()
   const deleteActivity = useDeleteActivity()
+  const confirm = useConfirmation()
 
   const handleDeleteActivity = async (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault()
-    await deleteActivity
-      .mutateAsync({
-        data: id,
-      })
-      .then(() => {
-        notification.success('Activity berhasil dihapus')
-      })
-      .catch(() => {
-        notification.error('Activity gagal dihapus')
-      })
+    confirm.setConfirm({
+      content: (
+        <>
+          Apakah anda yakin menghapus activity{' '}
+          <b>&#x22;{truncate(title)}&#x22;</b>?
+        </>
+      ),
+      onConfirm: async (setLoading, close) => {
+        setLoading(true)
+        await deleteActivity
+          .mutateAsync({
+            data: id,
+          })
+          .then(() => {
+            notification.success('Activity berhasil dihapus')
+          })
+          .catch(() => {
+            notification.error('Activity gagal dihapus')
+          })
+          .finally(() => {
+            setLoading(false)
+            close()
+          })
+      },
+    })
   }
 
   return (

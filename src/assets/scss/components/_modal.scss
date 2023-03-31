@@ -1,8 +1,12 @@
 .modal-container {
   @apply flex items-center justify-center px-5 py-10;
 
+  &.centered {
+    @apply h-full;
+  }
+
   &.scrollable {
-    @apply h-full overflow-hidden;
+    @apply overflow-hidden;
   }
 }
 
@@ -12,6 +16,10 @@
 
 .modal {
   @apply relative z-50 w-full rounded-xl bg-white shadow;
+
+  &.xxs {
+    @apply max-w-sm;
+  }
 
   &.xs {
     @apply max-w-md;

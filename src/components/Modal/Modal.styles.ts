@@ -6,6 +6,7 @@ import { createMemoClass } from '@utils/styles'
 import { ModalProps, ModalSize, ModalSizeMap } from './Modal.types'
 
 const sizes: ModalSizeMap<string> = {
+  xxs: 'xxs',
   xs: 'xs',
   sm: 'sm',
   md: 'md',

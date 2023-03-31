@@ -19,6 +19,7 @@ const TodoModal: React.FC<TodoModalProps> = ({ modal }) => {
         escapeKey: true,
         outsidePress: true,
       }}
+      isCenter
       isScrollable
     >
       <ModalHeader>Tambah List Item</ModalHeader>

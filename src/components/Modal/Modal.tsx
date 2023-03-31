@@ -28,6 +28,7 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
     className,
     dismiss,
     handler,
+    isCenter,
     isLoading,
     isOpen,
     isScrollable,
@@ -54,6 +55,7 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   const classes = useModalClass({ size, className })
   const modalContext = {
     isScrollable,
+    isCenter,
     isOpen,
     handler,
     dismiss,
@@ -113,7 +115,8 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
                 <motion.div
                   className={clsx(
                     'modal-container',
-                    isScrollable && 'scrollable'
+                    isScrollable && 'scrollable',
+                    isCenter && 'centered'
                   )}
                   initial='unmount'
                   exit='unmount'

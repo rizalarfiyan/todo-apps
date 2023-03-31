@@ -32,6 +32,10 @@ export const isNotFound = (req: UseQueryResult<unknown, AxiosError>) => {
   return req.isError && req.error?.response?.status === 404
 }
 
+export const truncate = (str: string, length = 100): string => {
+  return str.length > length ? `${str.substr(0, length)}...` : str
+}
+
 /* 
 Original code:
 https://github.com/gregberge/react-merge-refs/blob/main/src/index.tsx

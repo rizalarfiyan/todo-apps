@@ -2,6 +2,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
 const APP_TITLE = 'To Do List App'
 
 const ACTIVITY_GROUP = import.meta.env.VITE_ACTIVITY_GROUP || 'admin@admin.com'
+const DEFAULT_ACTIVITY_TITLE = 'New Activity'
 
 const ROUTE = {
   activity: '/',
@@ -39,6 +40,7 @@ export {
   APP_TITLE,
   COMPONENT,
   DATETIME_FORMAT,
+  DEFAULT_ACTIVITY_TITLE,
   PRIORITY_ACTIVITY,
   QUERY_KEY,
   ROUTE,

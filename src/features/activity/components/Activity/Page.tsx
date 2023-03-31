@@ -14,7 +14,7 @@ import Card from './Card'
 import Empty from './Empty'
 import Skeleton from './Skeleton'
 
-import { ACTIVITY_GROUP } from '@/constants'
+import { ACTIVITY_GROUP, DEFAULT_ACTIVITY_TITLE } from '@/constants'
 
 const Page = () => {
   const notification = useNotification()
@@ -31,8 +31,7 @@ const Page = () => {
       .mutateAsync({
         data: {
           email: ACTIVITY_GROUP,
-          title:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam minus modi ducimus saepe praesentium quasi sapiente, pariatur deleniti expedita, dolore, est ipsum laudantium optio.',
+          title: DEFAULT_ACTIVITY_TITLE,
         },
       })
       .then(() => {

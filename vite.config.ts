@@ -8,6 +8,7 @@ const manualChunks = {
   axios: ['axios'],
   utility: ['clsx', 'dayjs'],
   'react-query': ['@tanstack/react-query', '@tanstack/react-query-devtools'],
+  'framer-motion': ['framer-motion'],
 }
 
 // https://vitejs.dev/config/

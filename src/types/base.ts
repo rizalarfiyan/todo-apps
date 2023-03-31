@@ -1,4 +1,5 @@
 import {
+  FetchQueryOptions,
   QueryKey,
   UseMutationOptions,
   UseQueryOptions,
@@ -9,7 +10,14 @@ export type KeyValue<T = any> = {
   [key: string]: T
 }
 
-export type QueryOptions<T, U = T> = UseQueryOptions<
+export type UseQueryOptionsImpl<T, U = T> = UseQueryOptions<
+  T,
+  AxiosError<U>,
+  T,
+  QueryKey
+>
+
+export type FetchQueryOptionsImpl<T, U = T> = FetchQueryOptions<
   T,
   AxiosError<U>,
   T,

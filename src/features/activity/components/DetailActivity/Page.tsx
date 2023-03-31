@@ -1,11 +1,36 @@
 import React from 'react'
+import { useParams } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import Button from '@components/Button'
+import Error from '@components/Error'
 import Icon from '@components/Icon'
+
+import { useActivityDetail } from '@features/activity/services'
+
+import { isNotFound } from '@utils/base'
 
 import Empty from './Empty'
 
 const Page = () => {
+  const { id } = useParams()
+  const activityDetail = useActivityDetail(id as string)
+
+  if (isNotFound(activityDetail)) {
+    return (
+      <Error code='404' title='Activity Tidak Ditemukan' className='-mt-36'>
+        <div className='mt-2'>
+          Activity yang Anda cari tidak ada atau terjadi kesalahan lain. Kembali
+          ke{' '}
+          <Link to='/' className='text-gray-700 underline'>
+            halaman utama
+          </Link>
+          .
+        </div>
+      </Error>
+    )
+  }
+
   return (
     <div className='container space-y-20'>
       <div className='flex items-center justify-between gap-3'>
@@ -16,6 +41,7 @@ const Page = () => {
           variant='solid'
           color='primary'
           size='lg'
+          disabled={activityDetail.isLoading}
           isRounded
         >
           Tambah

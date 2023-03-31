@@ -3,7 +3,7 @@ import { AxiosRequestConfig } from 'axios'
 
 import axios from '@libs/axios'
 
-import { QueryOptions, QueryParams } from '@/types/base'
+import { QueryParams, UseQueryOptionsImpl } from '@/types/base'
 import { ActivityListDTO } from '@dto/activity'
 
 import { QUERY_KEY } from '@/constants'
@@ -22,7 +22,7 @@ export const getActivityList = async ({
 
 export const useActivityList = (
   params?: QueryParams,
-  options?: QueryOptions<ActivityListDTO>
+  options?: UseQueryOptionsImpl<ActivityListDTO>
 ) => {
   return useQuery({
     queryKey: [QUERY_KEY.activity],

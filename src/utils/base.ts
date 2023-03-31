@@ -1,3 +1,4 @@
+import { UseQueryResult } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
 export function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
@@ -25,4 +26,8 @@ export const getResultError = (
     message: string
   }>
   return error.response?.data?.message || error?.message || defaultError
+}
+
+export const isNotFound = (req: UseQueryResult<unknown, AxiosError>) => {
+  return req.isError && req.error?.response?.status === 404
 }

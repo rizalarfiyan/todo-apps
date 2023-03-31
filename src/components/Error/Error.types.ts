@@ -10,5 +10,4 @@ export type ErrorProps = React.HTMLAttributes<HTMLDivElement> & IErrorProps
 
 export interface NotFoundProps {
   parentPath?: string
-  className?: string
 }

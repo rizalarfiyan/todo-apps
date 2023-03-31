@@ -3,6 +3,13 @@ import * as path from 'path'
 import { defineConfig } from 'vite'
 import eslint from 'vite-plugin-eslint'
 
+const manualChunks = {
+  core: ['react', 'react-dom', 'react-router-dom'],
+  axios: ['axios'],
+  utility: ['clsx', 'dayjs'],
+  'react-query': ['@tanstack/react-query', '@tanstack/react-query-devtools'],
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), eslint()],
@@ -57,5 +64,13 @@ export default defineConfig({
         replacement: path.resolve(__dirname, './src'),
       },
     ],
+  },
+  build: {
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks,
+      },
+    },
   },
 })

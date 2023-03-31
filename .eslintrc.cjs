@@ -38,6 +38,7 @@ module.exports = {
           ['@libs/*', './src/libs/*'],
           ['@features/*', './src/features/*'],
           ['@utils/*', './src/utils/*'],
+          ['@providers/*', './src/providers/*'],
           ['@dto/*', './src/types/DTO/*'],
           ['@/*', './src'],
         ],
@@ -84,6 +85,8 @@ module.exports = {
           ['^@/types', '^@dto'],
           // utils
           ['^@utils'],
+          // providers
+          ['^@providers'],
           // relative paths up until 3 level
           [
             '^\\./?$',

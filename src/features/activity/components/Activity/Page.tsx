@@ -4,6 +4,8 @@ import Alert from '@components/Alert'
 import Button from '@components/Button'
 import Icon from '@components/Icon'
 
+import { useNotification } from '@hooks/useNotification'
+
 import { useActivityList, useCreateActivity } from '@features/activity/services'
 
 import { getResultError } from '@utils/base'
@@ -15,23 +17,30 @@ import Skeleton from './Skeleton'
 import { ACTIVITY_GROUP } from '@/constants'
 
 const Page = () => {
+  const notification = useNotification()
+  const createActivity = useCreateActivity()
   const activityList = useActivityList({
     email: ACTIVITY_GROUP,
   })
-
-  const createActivity = useCreateActivity()
 
   const isEmpty = activityList.data?.data.length === 0
 
   const handleCrateActivity = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    createActivity.mutateAsync({
-      data: {
-        email: ACTIVITY_GROUP,
-        title:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam minus modi ducimus saepe praesentium quasi sapiente, pariatur deleniti expedita, dolore, est ipsum laudantium optio.',
-      },
-    })
+    createActivity
+      .mutateAsync({
+        data: {
+          email: ACTIVITY_GROUP,
+          title:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam minus modi ducimus saepe praesentium quasi sapiente, pariatur deleniti expedita, dolore, est ipsum laudantium optio.',
+        },
+      })
+      .then(() => {
+        notification.success('Activity berhasil dibuat')
+      })
+      .catch(() => {
+        notification.error('Activity gagal dibuat')
+      })
   }
 
   return (

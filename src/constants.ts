@@ -12,6 +12,9 @@ const COMPONENT = {
   navigation: {
     scrollOffset: 50,
   },
+  notification: {
+    duration: 5000,
+  },
 }
 
 const QUERY_KEY = {

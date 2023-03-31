@@ -3,8 +3,7 @@ import React from 'react'
 import Button from '@components/Button'
 import Icon from '@components/Icon'
 
-import useCreateActivity from '@features/activity/services/useCreateActivity'
-import useActivityList from '@features/activity/services/useGetActivityList'
+import { useActivityList, useCreateActivity } from '@features/activity/services'
 
 import Card from './Card'
 import Empty from './Empty'

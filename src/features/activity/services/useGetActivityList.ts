@@ -20,7 +20,7 @@ export const getActivityList = async ({
     .then((res) => res.data)
 }
 
-const useActivityList = (
+export const useActivityList = (
   params?: QueryParams,
   options?: QueryOptions<ActivityListDTO>
 ) => {
@@ -30,5 +30,3 @@ const useActivityList = (
     ...options,
   })
 }
-
-export default useActivityList

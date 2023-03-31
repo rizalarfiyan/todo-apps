@@ -4,3 +4,7 @@ export interface BaseListDTO<T> {
   skip: number
   data: T
 }
+
+export interface BaseDelete {
+  id: number
+}

@@ -5,26 +5,25 @@ import axios from '@libs/axios'
 import queryClient from '@libs/react-query'
 
 import { MutationOptions } from '@/types/base'
-import { CreateActivityDTO, CreateActivityRequest } from '@dto/activity'
 
 import { QUERY_KEY } from '@/constants'
 
-export const createActivity = async ({
+export const deleteActivity = async ({
   data,
   signal,
-}: AxiosRequestConfig<CreateActivityRequest>): Promise<CreateActivityDTO> => {
+}: AxiosRequestConfig<number>): Promise<any> => {
   return await axios
-    .post('activity-groups', data, {
+    .delete('activity-groups/' + data, {
       signal,
     })
     .then((res) => res.data)
 }
 
-export const useCreateActivity = (
-  options?: MutationOptions<typeof createActivity>
+export const useDeleteActivity = (
+  options?: MutationOptions<typeof deleteActivity>
 ) => {
   return useMutation({
-    mutationFn: createActivity,
+    mutationFn: deleteActivity,
     onSettled: () =>
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.activity],

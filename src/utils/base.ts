@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios'
+
 export function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
   return obj[key]
 }
@@ -13,4 +15,14 @@ export const routeReplace = (
     }
     return acc
   }, path)
+}
+
+export const getResultError = (
+  errors: any,
+  defaultError = 'Terjadi kesalahan!'
+): string => {
+  const error = errors as AxiosError<{
+    message: string
+  }>
+  return error.response?.data?.message || error?.message || defaultError
 }

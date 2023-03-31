@@ -1,9 +1,12 @@
 import React from 'react'
 
+import Alert from '@components/Alert'
 import Button from '@components/Button'
 import Icon from '@components/Icon'
 
 import { useActivityList, useCreateActivity } from '@features/activity/services'
+
+import { getResultError } from '@utils/base'
 
 import Card from './Card'
 import Empty from './Empty'
@@ -56,7 +59,10 @@ const Page = () => {
             })}
           </div>
         ) : activityList.isError ? (
-          <div>Error... {JSON.stringify(activityList.error)}</div>
+          <Alert
+            variant='danger'
+            message={getResultError(activityList.error)}
+          />
         ) : isEmpty ? (
           <Empty className='mx-auto h-auto w-full max-w-xl' />
         ) : (

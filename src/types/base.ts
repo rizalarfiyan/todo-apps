@@ -1,4 +1,8 @@
-import { QueryKey, UseQueryOptions } from '@tanstack/react-query'
+import {
+  QueryKey,
+  UseMutationOptions,
+  UseQueryOptions,
+} from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
 export type KeyValue<T = any> = {
@@ -11,5 +15,16 @@ export type QueryOptions<T, U = T> = UseQueryOptions<
   T,
   QueryKey
 >
+
+export type ExtractFnReturnType<FnType extends (...args: any) => any> = Awaited<
+  ReturnType<FnType>
+>
+
+export type MutationOptions<MutationFnType extends (...args: any) => any> =
+  UseMutationOptions<
+    ExtractFnReturnType<MutationFnType>,
+    AxiosError,
+    Parameters<MutationFnType>[0]
+  >
 
 export type QueryParams = KeyValue<string | number | boolean>

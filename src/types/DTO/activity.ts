@@ -2,6 +2,13 @@ import { BaseListDTO } from './base'
 
 import { PRIORITY_ACTIVITY } from '@/constants'
 
+// Request
+export interface CreateActivityRequest {
+  title: string
+  email: string
+}
+
+// Response
 export type ActivityListDTO = BaseListDTO<ActivityItemDTO[]>
 
 export interface ActivityItemDTO {
@@ -11,10 +18,15 @@ export interface ActivityItemDTO {
 }
 
 export interface DetailActivityDTO extends ActivityItemDTO {
-  todo_items: TodoActifityItemDTO[]
+  todo_items: TodoActivityItemDTO[]
 }
 
-export interface TodoActifityItemDTO {
+export interface CreateActivityDTO extends ActivityItemDTO {
+  email: string
+  updated_at: string
+}
+
+export interface TodoActivityItemDTO {
   id: number
   title: string
   activity_group_id: number

@@ -3,6 +3,7 @@ import React from 'react'
 import Button from '@components/Button'
 import Icon from '@components/Icon'
 
+import useCreateActivity from '@features/activity/services/useCreateActivity'
 import useActivityList from '@features/activity/services/useGetActivityList'
 
 import Empty from './Empty'
@@ -10,11 +11,23 @@ import Empty from './Empty'
 import { ACTIVITY_GROUP } from '@/constants'
 
 const Page = () => {
-  const { data, error, isLoading, isError } = useActivityList({
+  const activityList = useActivityList({
     email: ACTIVITY_GROUP,
   })
 
-  const isEmpty = data?.data.length === 0
+  const createActivity = useCreateActivity()
+
+  const isEmpty = activityList.data?.data.length === 0
+
+  const handleCrateActivity = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    createActivity.mutateAsync({
+      data: {
+        email: ACTIVITY_GROUP,
+        title: 'Test',
+      },
+    })
+  }
 
   return (
     <div className='container space-y-20'>
@@ -27,18 +40,20 @@ const Page = () => {
           color='primary'
           size='lg'
           isRounded
+          onClick={handleCrateActivity}
+          isLoading={createActivity.isLoading}
         >
           Add
         </Button>
       </div>
-      {isLoading ? (
+      {activityList.isLoading ? (
         <div>Loading...</div>
-      ) : isError ? (
-        <div>Error... {JSON.stringify(error)}</div>
+      ) : activityList.isError ? (
+        <div>Error... {JSON.stringify(activityList.error)}</div>
       ) : isEmpty ? (
         <Empty className='mx-auto h-auto w-full max-w-xl' />
       ) : (
-        JSON.stringify(data)
+        JSON.stringify(activityList.data)
       )}
     </div>
   )

@@ -18,6 +18,10 @@ const QUERY_KEY = {
   activity: 'activity',
 }
 
+const DATETIME_FORMAT = {
+  base: 'DD MMMM YYYY',
+}
+
 enum PRIORITY_ACTIVITY {
   VeryHigh = 'very-high',
   High = 'high',
@@ -31,6 +35,7 @@ export {
   API_BASE_URL,
   APP_TITLE,
   COMPONENT,
+  DATETIME_FORMAT,
   PRIORITY_ACTIVITY,
   QUERY_KEY,
   ROUTE,

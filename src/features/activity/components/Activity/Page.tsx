@@ -6,6 +6,7 @@ import Icon from '@components/Icon'
 import useCreateActivity from '@features/activity/services/useCreateActivity'
 import useActivityList from '@features/activity/services/useGetActivityList'
 
+import Card from './Card'
 import Empty from './Empty'
 
 import { ACTIVITY_GROUP } from '@/constants'
@@ -24,15 +25,16 @@ const Page = () => {
     createActivity.mutateAsync({
       data: {
         email: ACTIVITY_GROUP,
-        title: 'Test',
+        title:
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam minus modi ducimus saepe praesentium quasi sapiente, pariatur deleniti expedita, dolore, est ipsum laudantium optio.',
       },
     })
   }
 
   return (
-    <div className='container space-y-20'>
+    <div className='container'>
       <div className='flex items-center justify-between gap-3'>
-        <h1 className='text-4xl font-semibold text-gray-800'>Activity</h1>
+        <h2 className='text-4xl font-semibold text-gray-800'>Activity</h2>
         <Button
           type='button'
           leftIcon={<Icon type='plus' className='mr-2 h-5 w-5' />}
@@ -43,18 +45,24 @@ const Page = () => {
           onClick={handleCrateActivity}
           isLoading={createActivity.isLoading}
         >
-          Add
+          Tambah
         </Button>
       </div>
-      {activityList.isLoading ? (
-        <div>Loading...</div>
-      ) : activityList.isError ? (
-        <div>Error... {JSON.stringify(activityList.error)}</div>
-      ) : isEmpty ? (
-        <Empty className='mx-auto h-auto w-full max-w-xl' />
-      ) : (
-        JSON.stringify(activityList.data)
-      )}
+      <div className='my-20'>
+        {activityList.isLoading ? (
+          <div>Loading...</div>
+        ) : activityList.isError ? (
+          <div>Error... {JSON.stringify(activityList.error)}</div>
+        ) : isEmpty ? (
+          <Empty className='mx-auto h-auto w-full max-w-xl' />
+        ) : (
+          <div className='flex flex-wrap items-center justify-center gap-5'>
+            {activityList.data.data.map((activity) => {
+              return <Card key={activity.id} activity={activity} />
+            })}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

@@ -9,7 +9,7 @@ const Page = () => {
   return (
     <div className='container space-y-20'>
       <div className='flex items-center justify-between gap-3'>
-        <h1 className='text-4xl font-semibold text-gray-800'>New Activity</h1>
+        <h2 className='text-4xl font-semibold text-gray-800'>New Activity</h2>
         <Button
           type='button'
           leftIcon={<Icon type='plus' className='mr-2 h-5 w-5' />}
@@ -18,7 +18,7 @@ const Page = () => {
           size='lg'
           isRounded
         >
-          Add
+          Tambah
         </Button>
       </div>
       <Empty className='mx-auto h-auto w-full max-w-xl' />

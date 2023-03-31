@@ -44,7 +44,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
       {...rest}
     >
       <>
-        {leftIcon && !isLoading ? leftIcon : null}
+        {leftIcon &&
+          (isLoading
+            ? !loadingText && <span className='opacity-0'>{leftIcon}</span>
+            : leftIcon)}
         {isLoading && (
           <Spinner
             className={clsx(
@@ -57,7 +60,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
         {isLoading
           ? loadingText || <span className='opacity-0'>{children}</span>
           : children}
-        {rightIcon && !isLoading ? rightIcon : null}
+        {rightIcon &&
+          (isLoading
+            ? !loadingText && <span className='opacity-0'>{rightIcon}</span>
+            : rightIcon)}
       </>
     </button>
   )

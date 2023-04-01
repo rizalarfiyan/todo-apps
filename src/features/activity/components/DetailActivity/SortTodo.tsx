@@ -30,7 +30,7 @@ const sortAction: SortAction[] = [
   {
     name: 'Belum Selesai',
     icon: 'sort',
-    action: (a, b) => Number(b.is_active) - Number(a.is_active),
+    action: (a, b) => Number(a.is_active) - Number(b.is_active),
   },
 ]
 

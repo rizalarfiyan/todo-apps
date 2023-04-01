@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 
@@ -11,14 +11,17 @@ import useDisclosure from '@hooks/useDisclosure'
 
 import { useActivityDetail, useTodoList } from '@features/activity/services'
 
+import { TodoItemDTO } from '@dto/activity'
+
 import { getResultError, isNotFound } from '@utils/base'
 
 import Card from './Card'
 import Empty from './Empty'
 import SortTodo from './SortTodo'
 import TodoModal from './TodoModal'
+import { SortAction } from './types'
 
-const Page = () => {
+const Page: React.FC = () => {
   const { id } = useParams()
   const modal = useDisclosure()
   const activityDetail = useActivityDetail(id as string)
@@ -26,12 +29,14 @@ const Page = () => {
     activity_group_id: id as string,
   })
 
-  const handleCreateTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-    modal.open()
-  }
-
+  const [sort, setSort] = useState<SortAction>()
   const isEmpty = activityDetail.data?.todo_items.length === 0
+  const todoDatas = useMemo(() => {
+    if (isEmpty) return []
+    const todos = todoList.data?.data || ([] as TodoItemDTO[])
+    if (!sort) return todos
+    return todos.sort((a, b) => sort.action(a, b))
+  }, [todoList.data, sort])
 
   if (!id || isNotFound(activityDetail)) {
     return (
@@ -49,6 +54,15 @@ const Page = () => {
   }
 
   const isLoading = activityDetail.isLoading || todoList.isLoading
+
+  const handleCreateTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    modal.open()
+  }
+
+  const handleOnSort = (sortAction: SortAction) => {
+    setSort(sortAction)
+  }
 
   return (
     <div className='container'>
@@ -85,7 +99,7 @@ const Page = () => {
           </Button>
         </div>
         <div className='flex items-center gap-4'>
-          <SortTodo isLoading={isLoading} />
+          <SortTodo isLoading={isLoading} sort={sort} onSort={handleOnSort} />
           <Button
             type='button'
             leftIcon={<Icon type='plus' className='mr-2 h-5 w-5' />}
@@ -109,7 +123,7 @@ const Page = () => {
           <Empty className='mx-auto h-auto w-full max-w-xl' />
         ) : (
           <div className='flex flex-col gap-4'>
-            {todoList.data?.data.map((todo) => {
+            {todoDatas.map((todo) => {
               return <Card key={todo.id} todo={todo} activityGroupId={id} />
             })}
           </div>

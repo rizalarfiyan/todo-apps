@@ -9,16 +9,14 @@ import { useNotification } from '@hooks/useNotification'
 
 import { useDeleteActivity } from '@features/activity/services'
 
-import { ActivityItemDTO } from '@dto/activity'
-
 import { routeReplace, truncate } from '@utils/base'
 import { parseDate } from '@utils/datetime'
 
+import { CardProps } from './types'
+
 import { ROUTE } from '@/constants'
 
-const Card: React.FC<{
-  activity: ActivityItemDTO
-}> = ({ activity: { id, title, created_at } }) => {
+const Card: React.FC<CardProps> = ({ activity: { id, title, created_at } }) => {
   const notification = useNotification()
   const deleteActivity = useDeleteActivity()
   const confirm = useConfirmation()

@@ -16,7 +16,7 @@ import Skeleton from './Skeleton'
 
 import { ACTIVITY_GROUP, DEFAULT_ACTIVITY_TITLE } from '@/constants'
 
-const Page = () => {
+const Page: React.FC = () => {
   const notification = useNotification()
   const createActivity = useCreateActivity()
   const activityList = useActivityList({

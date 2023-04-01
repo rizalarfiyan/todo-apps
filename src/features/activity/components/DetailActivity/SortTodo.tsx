@@ -2,41 +2,47 @@ import React from 'react'
 
 import Button from '@components/Button'
 import Dropdown from '@components/Dropdown'
-import Icon, { IconType } from '@components/Icon'
+import Icon from '@components/Icon'
 
-interface SortTodoProps {
-  isLoading: boolean
-}
+import { SortAction, SortTodoProps } from './types'
 
-interface SortData {
-  name: string
-  icon: IconType
-}
-
-const sortData: SortData[] = [
+const sortAction: SortAction[] = [
   {
     name: 'Terbaru',
     icon: 'sort-desc',
+    action: (a, b) => b.id - a.id,
   },
   {
     name: 'Terlama',
     icon: 'sort-asc',
+    action: (a, b) => a.id - b.id,
   },
   {
     name: 'A-Z',
     icon: 'sort-asc-letter',
+    action: (a, b) => (a.title > b.title ? 1 : a.title < b.title ? -1 : 0),
   },
   {
     name: 'Z-A',
     icon: 'sort-desc-letter',
+    action: (a, b) => (a.title < b.title ? 1 : a.title > b.title ? -1 : 0),
   },
   {
     name: 'Belum Selesai',
     icon: 'sort',
+    action: (a, b) => Number(b.is_active) - Number(a.is_active),
   },
 ]
 
-const SortTodo: React.FC<SortTodoProps> = ({ isLoading }) => {
+const SortTodo: React.FC<SortTodoProps> = ({ isLoading, sort, onSort }) => {
+  const handleClik = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    sortData: SortAction
+  ) => {
+    event.preventDefault()
+    onSort(sortData)
+  }
+
   return (
     <Dropdown placement='bottom-end' offset={14}>
       <Dropdown.Action>
@@ -54,11 +60,13 @@ const SortTodo: React.FC<SortTodoProps> = ({ isLoading }) => {
       </Dropdown.Action>
       <Dropdown.Menu>
         <div className='w-[200px] divide-y rounded bg-white py-1 text-gray-700 shadow'>
-          {sortData.map((val, idx) => {
+          {sortAction.map((val, idx) => {
             return (
-              <div
+              <button
+                type='button'
                 key={idx}
                 className='flex w-full items-center justify-between px-3 py-3 text-gray-700 hover:bg-gray-100'
+                onClick={(event) => handleClik(event, val)}
               >
                 <div className='flex items-center gap-2'>
                   <Icon
@@ -67,8 +75,10 @@ const SortTodo: React.FC<SortTodoProps> = ({ isLoading }) => {
                   />
                   <span>{val.name}</span>
                 </div>
-                <Icon type='check' className='h-4 w-4' />
-              </div>
+                {sort && sort.name === val.name && (
+                  <Icon type='check' className='h-4 w-4' />
+                )}
+              </button>
             )
           })}
         </div>

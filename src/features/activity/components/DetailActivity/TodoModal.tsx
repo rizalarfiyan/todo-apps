@@ -10,8 +10,9 @@ import { useNotification } from '@hooks/useNotification'
 
 import { useCreateTodo } from '@features/activity/services'
 
-import { UseDiscosure } from '@/types/hooks'
 import { BaseTodoRequest } from '@dto/activity'
+
+import { TodoModalProps } from './types'
 
 import {
   DEFAULT_PRIORITY_ACTIVITY,
@@ -19,11 +20,6 @@ import {
   PRIORITY_ACTIVITY,
   PRIORITY_ACTIVITY_OPTIONS,
 } from '@/constants'
-
-export interface TodoModalProps {
-  modal: UseDiscosure
-  identity: string
-}
 
 const TodoModal: React.FC<TodoModalProps> = ({ modal, identity }) => {
   const defaultData: BaseTodoRequest = {

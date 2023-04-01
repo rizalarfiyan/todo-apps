@@ -9,16 +9,13 @@ import { useNotification } from '@hooks/useNotification'
 
 import { useDeleteTodo } from '@features/activity/services'
 
-import { TodoItemDTO } from '@dto/activity'
-
 import { truncate } from '@utils/base'
+
+import { CardProps } from './types'
 
 import { PRIORITY_ACTIVITY_OPTIONS } from '@/constants'
 
-const Card: React.FC<{
-  todo: TodoItemDTO
-  activityGroupId: string
-}> = ({ todo, activityGroupId }) => {
+const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
   const color =
     PRIORITY_ACTIVITY_OPTIONS.find((val) => val.value === todo.priority)
       ?.color || 'bg-gray-500'

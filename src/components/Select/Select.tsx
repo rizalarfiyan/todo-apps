@@ -3,6 +3,7 @@ import {
   flip,
   FloatingFocusManager,
   FloatingOverlay,
+  FloatingPortal,
   offset as fuiOffset,
   size as fuiSize,
   useClick,
@@ -286,17 +287,19 @@ const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
             <Icon type='arrow' className={clsx('arrow', open && 'active')} />
           )}
         </button>
-        <AnimatePresence initial={false}>
-          {open && (
-            <>
-              {lockScroll ? (
-                <FloatingOverlay lockScroll>{selectMenu}</FloatingOverlay>
-              ) : (
-                selectMenu
-              )}
-            </>
-          )}
-        </AnimatePresence>
+        <FloatingPortal>
+          <AnimatePresence initial={false}>
+            {open && (
+              <>
+                {lockScroll ? (
+                  <FloatingOverlay lockScroll>{selectMenu}</FloatingOverlay>
+                ) : (
+                  selectMenu
+                )}
+              </>
+            )}
+          </AnimatePresence>
+        </FloatingPortal>
       </div>
     </SelectContext.Provider>
   )

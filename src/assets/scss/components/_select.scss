@@ -1,14 +1,6 @@
 .select-wrapper {
   @apply relative h-10 w-full min-w-[200px];
 
-  .select-content {
-    @apply divide-y rounded bg-white py-1 text-gray-700 shadow outline-none;
-  }
-
-  .select-item {
-    @apply flex w-full items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none;
-  }
-
   .select {
     @apply flex h-full w-full items-center rounded-md border border-blue-200 bg-transparent px-4 py-2.5 text-left;
 
@@ -19,5 +11,13 @@
         @apply rotate-180;
       }
     }
+  }
+}
+
+.select-content {
+  @apply divide-y rounded bg-white py-1 text-gray-700 shadow outline-none;
+
+  .select-item {
+    @apply flex w-full items-center justify-between px-4 py-2 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none;
   }
 }

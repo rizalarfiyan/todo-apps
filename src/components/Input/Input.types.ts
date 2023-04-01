@@ -29,6 +29,7 @@ export interface IInputProps<T = HTMLInputElement> {
   type?: string
   'aria-label'?: string
   'aria-describedby'?: string
+  limit?: number
 }
 
 export const InputSize = {

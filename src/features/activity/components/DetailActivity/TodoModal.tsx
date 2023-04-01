@@ -130,6 +130,7 @@ const TodoModal: React.FC<TodoModalProps> = ({
             placeholder='Tambahkan nama list item'
             size='lg'
             value={value.title}
+            limit={255}
             onChange={handleChangeName}
             disabled={isLoading}
           />

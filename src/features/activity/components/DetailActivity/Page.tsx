@@ -13,6 +13,7 @@ import { useActivityDetail } from '@features/activity/services'
 
 import { getResultError, isNotFound } from '@utils/base'
 
+import Card from './Card'
 import Empty from './Empty'
 import SortTodo from './SortTodo'
 import TodoModal from './TodoModal'
@@ -45,7 +46,7 @@ const Page = () => {
   }
 
   return (
-    <div className='container space-y-20'>
+    <div className='container'>
       <TodoModal identity={id} modal={modal} />
       <div className='flex items-center justify-between gap-3'>
         <div className='flex w-full items-center gap-3 text-gray-800'>
@@ -89,7 +90,7 @@ const Page = () => {
           </Button>
         </div>
       </div>
-      <div className='my-20'>
+      <div className='mt-20 pb-20'>
         {activityDetail.isLoading ? (
           <div>Loading....</div>
         ) : activityDetail.isError ? (
@@ -100,7 +101,11 @@ const Page = () => {
         ) : isEmpty ? (
           <Empty className='mx-auto h-auto w-full max-w-xl' />
         ) : (
-          JSON.stringify(activityDetail.data?.todo_items)
+          <div className='flex flex-col gap-4'>
+            {activityDetail.data?.todo_items.map((todo) => {
+              return <Card key={todo.id} todo={todo} />
+            })}
+          </div>
         )}
       </div>
     </div>

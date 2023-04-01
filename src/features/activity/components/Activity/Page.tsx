@@ -61,7 +61,7 @@ const Page = () => {
           Tambah
         </Button>
       </div>
-      <div className='my-20'>
+      <div className='mt-20 pb-20'>
         {activityList.isLoading ? (
           <div className='flex flex-wrap items-center justify-center gap-5'>
             {Array.from({ length: 12 }).map((_, idx) => {

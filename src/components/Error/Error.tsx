@@ -8,7 +8,7 @@ const Error = forwardRef<HTMLDivElement, ErrorProps>((props, ref) => {
   return (
     <div
       className={clsx(
-        'mx-auto flex min-h-screen w-full max-w-[320px] flex-col items-center justify-center text-center leading-snug',
+        'mx-auto flex h-full min-h-screen w-full max-w-[320px] flex-col items-center justify-center text-center leading-snug',
         className
       )}
       ref={ref}

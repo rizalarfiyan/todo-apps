@@ -20,7 +20,7 @@ const BaseLayout = (): JSX.Element => {
           ]}
         />
       </header>
-      <main className='min-h-screen w-full pt-36'>
+      <main className='h-full min-h-screen w-full pt-36'>
         <Outlet />
       </main>
     </>

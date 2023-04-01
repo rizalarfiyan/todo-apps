@@ -2,7 +2,11 @@
   @apply relative h-10 w-full min-w-[200px];
 
   .select {
-    @apply flex h-full w-full items-center rounded-md border border-blue-200 bg-transparent px-4 py-2.5 text-left;
+    @apply relative flex h-full w-full appearance-none items-center rounded-md border border-neutral-300 bg-white px-4 py-0 text-base leading-6 text-neutral-900 shadow-sm outline-none transition-colors duration-75 ease-out focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600;
+
+    &.active {
+      @apply border-blue-600 outline-none ring-1 ring-blue-600;
+    }
 
     .arrow {
       @apply absolute right-2 h-6 w-6 rotate-0 place-items-center text-gray-400 transition-all;

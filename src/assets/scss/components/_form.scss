@@ -1,0 +1,83 @@
+.form-group {
+  @apply relative w-full space-y-2;
+}
+
+.form-label {
+  @apply mb-1.5 block text-left align-middle text-sm font-medium;
+}
+
+.form-field {
+  @apply relative inline-flex w-full min-w-0 appearance-none items-center rounded-md outline-none transition-colors duration-75 ease-out focus:outline-none;
+
+  &.disabled {
+    @apply disabled:cursor-not-allowed disabled:border-neutral-200 disabled:bg-neutral-200 disabled:opacity-60 disabled:shadow-none;
+  }
+
+  &.outline {
+    @apply border border-neutral-300 bg-white text-neutral-900 shadow-sm focus:ring-1;
+
+    &:not(.invalid) {
+      @apply hover:border-neutral-300;
+    }
+
+    &[data-color='primary'] {
+      @apply focus:border-blue-600 focus:ring-blue-600;
+    }
+  }
+
+  &.solid {
+    @apply border border-neutral-300 bg-gray-100 text-neutral-900 hover:bg-gray-200 hover:bg-opacity-80 focus:bg-white focus:ring-1;
+
+    &[data-color='primary'] {
+      @apply focus:border-blue-600 focus:ring-blue-600;
+    }
+  }
+
+  &.invalid {
+    @apply border-red-600;
+  }
+
+  &.xs {
+    @apply h-7 px-3 py-0 text-xs leading-4;
+  }
+
+  &.sm {
+    @apply h-8 px-3 py-0 text-sm leading-5;
+  }
+
+  &.md {
+    @apply h-9 px-3 py-0 text-base leading-5;
+  }
+
+  &.lg {
+    @apply h-11 px-4 py-0 text-base leading-6;
+  }
+
+  &.xl {
+    @apply h-[3.125rem] px-4 py-0 text-lg leading-7;
+  }
+}
+
+textarea.form-field {
+  @apply max-h-96 min-h-[5rem] py-2 leading-tight;
+
+  &.xs {
+    @apply h-full min-h-[1.75rem] p-3 py-1.5;
+  }
+
+  &.sm {
+    @apply h-full min-h-[2rem] p-3 py-1.5;
+  }
+
+  &.md {
+    @apply h-full min-h-[2.25rem] p-3 py-2;
+  }
+
+  &.lg {
+    @apply h-full min-h-[2.75rem] p-4 py-2;
+  }
+
+  &.xl {
+    @apply h-full min-h-[3.125rem] p-4 py-2;
+  }
+}

@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import React, { useState } from 'react'
 
 import Button from '@components/Button'
+import Input from '@components/Input'
 import Modal, { ModalBody, ModalFooter, ModalHeader } from '@components/Modal'
 import Select from '@components/Select'
 
@@ -32,25 +33,38 @@ const TodoModal: React.FC<TodoModalProps> = ({ modal }) => {
       isScrollable
     >
       <ModalHeader>Tambah List Item</ModalHeader>
-      <ModalBody className='text-gray-600'>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum officia
-          non iusto ea accusamus excepturi sit? Fugit commodi mollitia inventore
-          ducimus! Suscipit saepe harum pariatur doloribus rerum nam, voluptate
-          officiis?
-        </p>
-        <Select value={value} onChange={handleChange}>
-          {PRIORITY_ACTIVITY_OPTIONS.map((val) => {
-            return (
-              <Select.Option key={val.value} value={val.value}>
-                <div className='flex items-center gap-3'>
-                  <div className={clsx('h-3 w-3 rounded-full', val.color)} />
-                  <span>{val.name}</span>
-                </div>
-              </Select.Option>
-            )
-          })}
-        </Select>
+      <ModalBody className='gap-10 text-gray-600'>
+        <div className='form-group'>
+          <label htmlFor='list-item-name' className='form-label uppercase'>
+            NAMA LIST ITEM
+          </label>
+          <Input
+            id='list-item-name'
+            placeholder='Tambahkan nama list item'
+            size='lg'
+          />
+        </div>
+        <div className='form-group'>
+          <label htmlFor='select-priority' className='form-label uppercase'>
+            Priority
+          </label>
+          <div className='w-full max-w-[240px]'>
+            <Select id='select-priority' value={value} onChange={handleChange}>
+              {PRIORITY_ACTIVITY_OPTIONS.map((val) => {
+                return (
+                  <Select.Option key={val.value} value={val.value}>
+                    <div className='flex items-center gap-3'>
+                      <div
+                        className={clsx('h-3 w-3 rounded-full', val.color)}
+                      />
+                      <span className='text-gray-600'>{val.name}</span>
+                    </div>
+                  </Select.Option>
+                )
+              })}
+            </Select>
+          </div>
+        </div>
       </ModalBody>
       <ModalFooter>
         <Button type='button' variant='solid' color='primary'>

@@ -12,7 +12,8 @@ export interface CardProps {
 
 export interface TodoModalProps {
   modal: UseDiscosure
-  identity: string
+  activityGroupId: string
+  todo?: TodoItemDTO
 }
 
 export interface SortTodoProps {

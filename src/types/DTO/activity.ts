@@ -23,7 +23,10 @@ export interface CreateTodoRequest extends BaseTodoRequest {
   activity_group_id: string
 }
 
-export type UpdateTodoRequest = BaseTodoRequest
+export interface UpdateTodoRequest extends BaseTodoRequest {
+  id: number
+  activity_group_id: string
+}
 
 // Response
 export type ActivityListDTO = BaseListDTO<ActivityItemDTO[]>
@@ -52,7 +55,7 @@ export interface TodoItemDTO {
   priority: PRIORITY_ACTIVITY
 }
 
-export interface CreateTodoDTO extends TodoItemDTO {
+export interface CreateUpdateTodoDTO extends TodoItemDTO {
   created_at: string
   updated_at: string
 }

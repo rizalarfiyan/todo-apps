@@ -65,7 +65,7 @@ const SortTodo: React.FC<SortTodoProps> = ({ isLoading, sort, onSort }) => {
               <button
                 type='button'
                 key={idx}
-                className='flex w-full items-center justify-between px-3 py-3 text-gray-700 hover:bg-gray-100'
+                className='flex w-full items-center justify-between px-3 py-3 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none'
                 onClick={(event) => handleClik(event, val)}
               >
                 <div className='flex items-center gap-2'>

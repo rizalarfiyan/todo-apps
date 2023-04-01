@@ -5,24 +5,32 @@ import axios from '@libs/axios'
 import queryClient from '@libs/react-query'
 
 import { MutationOptions } from '@/types/base'
-import { CreateTodoRequest, CreateUpdateTodoDTO } from '@dto/activity'
+import { CreateUpdateTodoDTO, UpdateTodoRequest } from '@dto/activity'
 
 import { QUERY_KEY } from '@/constants'
 
-export const createTodo = async ({
+export const updateTodo = async ({
   data,
   signal,
-}: AxiosRequestConfig<CreateTodoRequest>): Promise<CreateUpdateTodoDTO> => {
+}: AxiosRequestConfig<UpdateTodoRequest>): Promise<CreateUpdateTodoDTO> => {
   return await axios
-    .post('todo-items', data, {
-      signal,
-    })
+    .patch(
+      'todo-items/' + data?.id,
+      {
+        title: data?.title,
+        is_active: data?.is_active,
+        priority: data?.priority,
+      },
+      {
+        signal,
+      }
+    )
     .then((res) => res.data)
 }
 
-export const useCreateTodo = (options?: MutationOptions<typeof createTodo>) => {
+export const useUpdateTodo = (options?: MutationOptions<typeof updateTodo>) => {
   return useMutation({
-    mutationFn: createTodo,
+    mutationFn: updateTodo,
     onSettled: (data, error, req) =>
       queryClient.invalidateQueries({
         queryKey: [

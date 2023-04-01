@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Button from '@components/Button'
 import Input from '@components/Input'
@@ -8,7 +8,7 @@ import Select from '@components/Select'
 
 import { useNotification } from '@hooks/useNotification'
 
-import { useCreateTodo } from '@features/activity/services'
+import { useCreateTodo, useUpdateTodo } from '@features/activity/services'
 
 import { BaseTodoRequest } from '@dto/activity'
 
@@ -21,7 +21,11 @@ import {
   PRIORITY_ACTIVITY_OPTIONS,
 } from '@/constants'
 
-const TodoModal: React.FC<TodoModalProps> = ({ modal, identity }) => {
+const TodoModal: React.FC<TodoModalProps> = ({
+  modal,
+  activityGroupId,
+  todo,
+}) => {
   const defaultData: BaseTodoRequest = {
     is_active: DEFAULT_PRIORITY_STATUS,
     priority: DEFAULT_PRIORITY_ACTIVITY,
@@ -32,6 +36,18 @@ const TodoModal: React.FC<TodoModalProps> = ({ modal, identity }) => {
 
   const notification = useNotification()
   const createTodo = useCreateTodo()
+  const updateTodo = useUpdateTodo()
+
+  const isEdit = !!todo
+  useEffect(() => {
+    if (isEdit) {
+      setValue({
+        title: todo?.title || '',
+        priority: todo?.priority || DEFAULT_PRIORITY_ACTIVITY,
+        is_active: todo?.is_active,
+      })
+    }
+  }, [todo])
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
@@ -50,10 +66,29 @@ const TodoModal: React.FC<TodoModalProps> = ({ modal, identity }) => {
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
+    if (isEdit) {
+      await updateTodo
+        .mutateAsync({
+          data: {
+            activity_group_id: activityGroupId,
+            id: todo?.id as number,
+            ...value,
+          },
+        })
+        .then(() => {
+          notification.success('Todo Item berhasil diperbarui')
+          setValue(defaultData)
+          modal.close()
+        })
+        .catch(() => {
+          notification.error('Todo Item gagal diperbarui')
+        })
+      return
+    }
     await createTodo
       .mutateAsync({
         data: {
-          activity_group_id: identity,
+          activity_group_id: activityGroupId,
           ...value,
         },
       })
@@ -67,7 +102,8 @@ const TodoModal: React.FC<TodoModalProps> = ({ modal, identity }) => {
       })
   }
 
-  const modalClose = !createTodo.isLoading
+  const modalClose = !createTodo.isLoading && !updateTodo.isLoading
+  const isLoading = createTodo.isLoading || updateTodo.isLoading
 
   return (
     <Modal
@@ -95,6 +131,7 @@ const TodoModal: React.FC<TodoModalProps> = ({ modal, identity }) => {
             size='lg'
             value={value.title}
             onChange={handleChangeName}
+            disabled={isLoading}
           />
         </div>
         <div className='form-group'>
@@ -106,6 +143,7 @@ const TodoModal: React.FC<TodoModalProps> = ({ modal, identity }) => {
               id='select-priority'
               value={value.priority}
               onChange={handleChangePriority}
+              disabled={isLoading}
             >
               {PRIORITY_ACTIVITY_OPTIONS.map((val) => {
                 return (
@@ -128,7 +166,7 @@ const TodoModal: React.FC<TodoModalProps> = ({ modal, identity }) => {
           type='button'
           variant='solid'
           color='primary'
-          isLoading={createTodo.isLoading}
+          isLoading={isLoading}
           disabled={value.title.trim() === ''}
           onClick={handleSubmit}
         >

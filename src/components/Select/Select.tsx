@@ -269,8 +269,13 @@ const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           {...getReferenceProps({
             ...rest,
             ref: reference,
-            className: clsx('select', open && 'active', className),
-            disabled: disabled,
+            className: clsx(
+              'select',
+              open && 'active',
+              disabled && 'disabled',
+              className
+            ),
+            disabled,
           })}
         >
           {typeof selected === 'function' ? (

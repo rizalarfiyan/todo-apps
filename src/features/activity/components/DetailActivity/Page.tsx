@@ -66,7 +66,7 @@ const Page: React.FC = () => {
 
   return (
     <div className='container'>
-      <TodoModal identity={id} modal={modal} />
+      <TodoModal activityGroupId={id} modal={modal} />
       <div className='flex items-center justify-between gap-3'>
         <div className='flex w-full items-center gap-3 text-gray-800'>
           <Link to='/'>

@@ -6,12 +6,14 @@ import Checkbox from '@components/Checkbox'
 import Icon from '@components/Icon'
 
 import useConfirmation from '@hooks/useConfirmation'
+import useDisclosure from '@hooks/useDisclosure'
 import { useNotification } from '@hooks/useNotification'
 
 import { useDeleteTodo } from '@features/activity/services'
 
 import { truncate } from '@utils/base'
 
+import TodoModal from './TodoModal'
 import { CardProps } from './types'
 
 import { PRIORITY_ACTIVITY_OPTIONS } from '@/constants'
@@ -24,6 +26,7 @@ const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
   const notification = useNotification()
   const deleteTodo = useDeleteTodo()
   const confirm = useConfirmation()
+  const modal = useDisclosure()
 
   const handleDeleteTodo = async (
     event: React.MouseEvent<HTMLButtonElement>
@@ -59,17 +62,24 @@ const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
     })
   }
 
+  const handleUpdateTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    modal.open()
+  }
+
+  const isDisable = deleteTodo.isLoading
+
   return (
     <div className='flex w-full items-center justify-between gap-4 rounded-md bg-white p-4 shadow-md'>
+      <TodoModal activityGroupId={activityGroupId} modal={modal} todo={todo} />
       <div className='flex items-center gap-4'>
-        <div>
+        <div className='ml-1 flex items-center gap-4'>
           <Checkbox
             initialValue={todo.is_active}
             // onChange={handleChangeChekbox}
+            disabled={isDisable}
           />
-        </div>
-        <div>
-          <div className={clsx('h-3 w-3 rounded-full', color)} />
+          <div className={clsx('inline-flex h-3 w-3 rounded-full', color)} />
         </div>
         <h4 className='line-clamp-2 w-full text-base'>{todo.title}</h4>
         <Button
@@ -77,7 +87,8 @@ const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
           variant='ghost'
           isIcon
           isRounded
-          disabled={deleteTodo.isLoading}
+          disabled={isDisable}
+          onClick={handleUpdateTodo}
         >
           <Icon type='pencil' className='h-5 w-5 text-gray-600' />
         </Button>
@@ -88,6 +99,7 @@ const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
         isIcon
         onClick={handleDeleteTodo}
         isLoading={deleteTodo.isLoading}
+        disabled={isDisable}
       >
         <Icon type='trash' className='h-5 w-5 text-gray-600' />
       </Button>

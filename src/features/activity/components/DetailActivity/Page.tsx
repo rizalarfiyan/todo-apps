@@ -9,7 +9,7 @@ import Icon from '@components/Icon'
 
 import useDisclosure from '@hooks/useDisclosure'
 
-import { useActivityDetail } from '@features/activity/services'
+import { useActivityDetail, useTodoList } from '@features/activity/services'
 
 import { getResultError, isNotFound } from '@utils/base'
 
@@ -20,8 +20,11 @@ import TodoModal from './TodoModal'
 
 const Page = () => {
   const { id } = useParams()
-  const activityDetail = useActivityDetail(id as string)
   const modal = useDisclosure()
+  const activityDetail = useActivityDetail(id as string)
+  const todoList = useTodoList({
+    activity_group_id: id as string,
+  })
 
   const handleCreateTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -45,6 +48,8 @@ const Page = () => {
     )
   }
 
+  const isLoading = activityDetail.isLoading || todoList.isLoading
+
   return (
     <div className='container'>
       <TodoModal identity={id} modal={modal} />
@@ -59,6 +64,11 @@ const Page = () => {
               <div className='h-6 w-full animate-pulse rounded-md bg-gray-200' />
               <div className='h-6 w-1/2 animate-pulse rounded-md bg-gray-200' />
             </div>
+          ) : activityDetail.error ? (
+            <Alert
+              variant='danger'
+              message={getResultError(activityDetail.error)}
+            />
           ) : (
             <h2 className='line-clamp-3 max-w-3xl text-2xl font-semibold'>
               {activityDetail.data?.title}
@@ -75,14 +85,14 @@ const Page = () => {
           </Button>
         </div>
         <div className='flex items-center gap-4'>
-          <SortTodo isLoading={activityDetail.isLoading} />
+          <SortTodo isLoading={isLoading} />
           <Button
             type='button'
             leftIcon={<Icon type='plus' className='mr-2 h-5 w-5' />}
             variant='solid'
             color='primary'
             size='lg'
-            disabled={activityDetail.isLoading}
+            disabled={isLoading}
             onClick={handleCreateTodo}
             isRounded
           >
@@ -91,19 +101,16 @@ const Page = () => {
         </div>
       </div>
       <div className='mt-20 pb-20'>
-        {activityDetail.isLoading ? (
+        {todoList.isLoading ? (
           <div>Loading....</div>
-        ) : activityDetail.isError ? (
-          <Alert
-            variant='danger'
-            message={getResultError(activityDetail.error)}
-          />
+        ) : todoList.isError ? (
+          <Alert variant='danger' message={getResultError(todoList.error)} />
         ) : isEmpty ? (
           <Empty className='mx-auto h-auto w-full max-w-xl' />
         ) : (
           <div className='flex flex-col gap-4'>
-            {activityDetail.data?.todo_items.map((todo) => {
-              return <Card key={todo.id} todo={todo} />
+            {todoList.data?.data.map((todo) => {
+              return <Card key={todo.id} todo={todo} activityGroupId={id} />
             })}
           </div>
         )}

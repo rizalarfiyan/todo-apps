@@ -23,9 +23,14 @@ export const createTodo = async ({
 export const useCreateTodo = (options?: MutationOptions<typeof createTodo>) => {
   return useMutation({
     mutationFn: createTodo,
-    onSettled: () =>
+    onSettled: (data, error, req) =>
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY.activity],
+        queryKey: [
+          QUERY_KEY.todo,
+          {
+            activity_group_id: req.data?.activity_group_id,
+          },
+        ],
       }),
     ...options,
   })

@@ -14,6 +14,11 @@ export interface BaseTodoRequest {
   priority: PRIORITY_ACTIVITY
 }
 
+export interface DeleteTodoRequest {
+  todoId: number
+  activityGroupId: string
+}
+
 export interface CreateTodoRequest extends BaseTodoRequest {
   activity_group_id: string
 }
@@ -22,6 +27,7 @@ export type UpdateTodoRequest = BaseTodoRequest
 
 // Response
 export type ActivityListDTO = BaseListDTO<ActivityItemDTO[]>
+export type TodoListDTO = BaseListDTO<TodoItemDTO[]>
 
 export interface ActivityItemDTO {
   id: number

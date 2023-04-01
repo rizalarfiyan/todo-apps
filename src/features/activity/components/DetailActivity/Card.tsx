@@ -17,7 +17,8 @@ import { PRIORITY_ACTIVITY_OPTIONS } from '@/constants'
 
 const Card: React.FC<{
   todo: TodoItemDTO
-}> = ({ todo }) => {
+  activityGroupId: string
+}> = ({ todo, activityGroupId }) => {
   const color =
     PRIORITY_ACTIVITY_OPTIONS.find((val) => val.value === todo.priority)
       ?.color || 'bg-gray-500'
@@ -41,7 +42,10 @@ const Card: React.FC<{
         setLoading(true)
         await deleteTodo
           .mutateAsync({
-            data: todo.id,
+            data: {
+              activityGroupId,
+              todoId: todo.id,
+            },
           })
           .then(() => {
             notification.success('List Item berhasil dihapus')

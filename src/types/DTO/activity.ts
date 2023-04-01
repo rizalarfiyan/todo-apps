@@ -23,7 +23,7 @@ export interface CreateTodoRequest extends BaseTodoRequest {
   activity_group_id: string
 }
 
-export interface UpdateTodoRequest extends BaseTodoRequest {
+export interface UpdateTodoRequest extends Partial<BaseTodoRequest> {
   id: number
   activity_group_id: string
 }

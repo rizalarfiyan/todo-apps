@@ -9,7 +9,7 @@ import useConfirmation from '@hooks/useConfirmation'
 import useDisclosure from '@hooks/useDisclosure'
 import { useNotification } from '@hooks/useNotification'
 
-import { useDeleteTodo } from '@features/activity/services'
+import { useDeleteTodo, useUpdateTodo } from '@features/activity/services'
 
 import { truncate } from '@utils/base'
 
@@ -25,6 +25,7 @@ const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
 
   const notification = useNotification()
   const deleteTodo = useDeleteTodo()
+  const updateTodo = useUpdateTodo()
   const confirm = useConfirmation()
   const modal = useDisclosure()
 
@@ -67,7 +68,24 @@ const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
     modal.open()
   }
 
-  const isDisable = deleteTodo.isLoading
+  const handleChangeChekbox = async (value: boolean) => {
+    await updateTodo
+      .mutateAsync({
+        data: {
+          activity_group_id: activityGroupId,
+          id: todo?.id as number,
+          is_active: value,
+        },
+      })
+      .then(() => {
+        notification.success('Todo Item berhasil diperbarui')
+      })
+      .catch(() => {
+        notification.error('Todo Item gagal diperbarui')
+      })
+  }
+
+  const isDisable = deleteTodo.isLoading || updateTodo.isLoading
 
   return (
     <div className='flex w-full items-center justify-between gap-4 rounded-md bg-white p-4 shadow-md'>
@@ -76,8 +94,9 @@ const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
         <div className='ml-1 flex items-center gap-4'>
           <Checkbox
             initialValue={todo.is_active}
-            // onChange={handleChangeChekbox}
+            onChange={handleChangeChekbox}
             disabled={isDisable}
+            isLoading={updateTodo.isLoading}
           />
           <div className={clsx('inline-flex h-3 w-3 rounded-full', color)} />
         </div>

@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 
+import Alert from '@components/Alert'
 import Button from '@components/Button'
 import Error from '@components/Error'
 import Icon from '@components/Icon'
@@ -10,7 +11,7 @@ import useDisclosure from '@hooks/useDisclosure'
 
 import { useActivityDetail } from '@features/activity/services'
 
-import { isNotFound } from '@utils/base'
+import { getResultError, isNotFound } from '@utils/base'
 
 import Empty from './Empty'
 import SortTodo from './SortTodo'
@@ -26,7 +27,9 @@ const Page = () => {
     modal.open()
   }
 
-  if (isNotFound(activityDetail)) {
+  const isEmpty = activityDetail.data?.todo_items.length === 0
+
+  if (!id || isNotFound(activityDetail)) {
     return (
       <Error code='404' title='Activity Tidak Ditemukan' className='-mt-36'>
         <div className='mt-2'>
@@ -43,7 +46,7 @@ const Page = () => {
 
   return (
     <div className='container space-y-20'>
-      <TodoModal modal={modal} />
+      <TodoModal identity={id} modal={modal} />
       <div className='flex items-center justify-between gap-3'>
         <div className='flex w-full items-center gap-3 text-gray-800'>
           <Link to='/'>
@@ -86,7 +89,20 @@ const Page = () => {
           </Button>
         </div>
       </div>
-      <Empty className='mx-auto h-auto w-full max-w-xl' />
+      <div className='my-20'>
+        {activityDetail.isLoading ? (
+          <div>Loading....</div>
+        ) : activityDetail.isError ? (
+          <Alert
+            variant='danger'
+            message={getResultError(activityDetail.error)}
+          />
+        ) : isEmpty ? (
+          <Empty className='mx-auto h-auto w-full max-w-xl' />
+        ) : (
+          JSON.stringify(activityDetail.data?.todo_items)
+        )}
+      </div>
     </div>
   )
 }

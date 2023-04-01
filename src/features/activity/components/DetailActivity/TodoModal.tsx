@@ -6,28 +6,81 @@ import Input from '@components/Input'
 import Modal, { ModalBody, ModalFooter, ModalHeader } from '@components/Modal'
 import Select from '@components/Select'
 
-import { UseDiscosure } from '@/types/hooks'
+import { useNotification } from '@hooks/useNotification'
 
-import { PRIORITY_ACTIVITY, PRIORITY_ACTIVITY_OPTIONS } from '@/constants'
+import { useCreateTodo } from '@features/activity/services'
+
+import { UseDiscosure } from '@/types/hooks'
+import { BaseTodoRequest } from '@dto/activity'
+
+import {
+  DEFAULT_PRIORITY_ACTIVITY,
+  DEFAULT_PRIORITY_STATUS,
+  PRIORITY_ACTIVITY,
+  PRIORITY_ACTIVITY_OPTIONS,
+} from '@/constants'
 
 export interface TodoModalProps {
   modal: UseDiscosure
+  identity: string
 }
 
-const TodoModal: React.FC<TodoModalProps> = ({ modal }) => {
-  const [value, setValue] = useState(PRIORITY_ACTIVITY.VeryHigh)
-  const handleChange = (value: React.ReactNode) => {
-    setValue(value as PRIORITY_ACTIVITY)
+const TodoModal: React.FC<TodoModalProps> = ({ modal, identity }) => {
+  const defaultData: BaseTodoRequest = {
+    is_active: DEFAULT_PRIORITY_STATUS,
+    priority: DEFAULT_PRIORITY_ACTIVITY,
+    title: '',
   }
+
+  const [value, setValue] = useState(defaultData)
+
+  const notification = useNotification()
+  const createTodo = useCreateTodo()
+
+  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    setValue((prev) => ({
+      ...prev,
+      title: event.target.value,
+    }))
+  }
+
+  const handleChangePriority = (value: React.ReactNode) => {
+    setValue((prev) => ({
+      ...prev,
+      priority: value as PRIORITY_ACTIVITY,
+    }))
+  }
+
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    await createTodo
+      .mutateAsync({
+        data: {
+          activity_group_id: identity,
+          ...value,
+        },
+      })
+      .then(() => {
+        notification.success('Todo Item berhasil dibuat')
+        setValue(defaultData)
+        modal.close()
+      })
+      .catch(() => {
+        notification.error('Todo Item gagal dibuat')
+      })
+  }
+
+  const modalClose = !createTodo.isLoading
 
   return (
     <Modal
       isOpen={modal.isOpen}
       handler={modal.toggle}
       dismiss={{
-        closeButton: true,
-        escapeKey: true,
-        outsidePress: true,
+        closeButton: modalClose,
+        escapeKey: modalClose,
+        outsidePress: modalClose,
       }}
       isCenter
       isScrollable
@@ -40,8 +93,12 @@ const TodoModal: React.FC<TodoModalProps> = ({ modal }) => {
           </label>
           <Input
             id='list-item-name'
+            name='name'
+            type='text'
             placeholder='Tambahkan nama list item'
             size='lg'
+            value={value.title}
+            onChange={handleChangeName}
           />
         </div>
         <div className='form-group'>
@@ -49,7 +106,11 @@ const TodoModal: React.FC<TodoModalProps> = ({ modal }) => {
             Priority
           </label>
           <div className='w-full max-w-[240px]'>
-            <Select id='select-priority' value={value} onChange={handleChange}>
+            <Select
+              id='select-priority'
+              value={value.priority}
+              onChange={handleChangePriority}
+            >
               {PRIORITY_ACTIVITY_OPTIONS.map((val) => {
                 return (
                   <Select.Option key={val.value} value={val.value}>
@@ -67,7 +128,14 @@ const TodoModal: React.FC<TodoModalProps> = ({ modal }) => {
         </div>
       </ModalBody>
       <ModalFooter>
-        <Button type='button' variant='solid' color='primary'>
+        <Button
+          type='button'
+          variant='solid'
+          color='primary'
+          isLoading={createTodo.isLoading}
+          disabled={value.title.trim() === ''}
+          onClick={handleSubmit}
+        >
           Simpan
         </Button>
       </ModalFooter>

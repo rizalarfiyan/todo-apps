@@ -25,9 +25,11 @@ const Page = () => {
 
   const isEmpty = activityList.data?.data.length === 0
 
-  const handleCrateActivity = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCrateActivity = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault()
-    createActivity
+    await createActivity
       .mutateAsync({
         data: {
           email: ACTIVITY_GROUP,

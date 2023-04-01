@@ -8,6 +8,18 @@ export interface CreateActivityRequest {
   email: string
 }
 
+export interface BaseTodoRequest {
+  title: string
+  is_active: boolean
+  priority: PRIORITY_ACTIVITY
+}
+
+export interface CreateTodoRequest extends BaseTodoRequest {
+  activity_group_id: string
+}
+
+export type UpdateTodoRequest = BaseTodoRequest
+
 // Response
 export type ActivityListDTO = BaseListDTO<ActivityItemDTO[]>
 
@@ -18,7 +30,7 @@ export interface ActivityItemDTO {
 }
 
 export interface DetailActivityDTO extends ActivityItemDTO {
-  todo_items: TodoActivityItemDTO[]
+  todo_items: TodoItemDTO[]
 }
 
 export interface CreateActivityDTO extends ActivityItemDTO {
@@ -26,10 +38,15 @@ export interface CreateActivityDTO extends ActivityItemDTO {
   updated_at: string
 }
 
-export interface TodoActivityItemDTO {
+export interface TodoItemDTO {
   id: number
   title: string
   activity_group_id: number
-  is_active: number
+  is_active: boolean
   priority: PRIORITY_ACTIVITY
+}
+
+export interface CreateTodoDTO extends TodoItemDTO {
+  created_at: string
+  updated_at: string
 }

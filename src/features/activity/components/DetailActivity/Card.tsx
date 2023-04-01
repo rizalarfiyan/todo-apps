@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import React from 'react'
 
 import Button from '@components/Button'
+import Checkbox from '@components/Checkbox'
 import Icon from '@components/Icon'
 
 import useConfirmation from '@hooks/useConfirmation'
@@ -61,7 +62,12 @@ const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
   return (
     <div className='flex w-full items-center justify-between gap-4 rounded-md bg-white p-4 shadow-md'>
       <div className='flex items-center gap-4'>
-        <div>{todo.is_active ? 'true' : 'false'}</div>
+        <div>
+          <Checkbox
+            initialValue={todo.is_active}
+            // onChange={handleChangeChekbox}
+          />
+        </div>
         <div>
           <div className={clsx('h-3 w-3 rounded-full', color)} />
         </div>

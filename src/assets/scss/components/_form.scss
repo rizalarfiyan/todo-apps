@@ -81,3 +81,34 @@ textarea.form-field {
     @apply h-full min-h-[3.125rem] p-4 py-2;
   }
 }
+
+.checkbox-wrapper {
+  @apply relative flex items-center justify-center overflow-hidden rounded-md p-1;
+
+  &.disabled {
+    &,
+    input[type='checkbox'] {
+      @apply cursor-not-allowed;
+    }
+  }
+
+  .loading-wrapper {
+    @apply absolute inset-0 flex h-full w-full items-center justify-center bg-blue-50;
+  }
+
+  .checkbox-content {
+    @apply flex h-6 w-6 flex-shrink-0 items-center justify-center rounded border-2 border-gray-400 bg-white focus-within:border-blue-500;
+  }
+
+  input[type='checkbox'] {
+    @apply absolute cursor-pointer opacity-0;
+  }
+
+  .checkbox-icon {
+    @apply pointer-events-none hidden h-5 w-5 fill-current text-blue-500;
+  }
+
+  input[type='checkbox']:checked + svg {
+    @apply block;
+  }
+}

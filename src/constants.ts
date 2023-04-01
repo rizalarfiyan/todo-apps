@@ -22,6 +22,7 @@ const COMPONENT = {
 
 const QUERY_KEY = {
   activity: 'activity',
+  todo: 'todo',
 }
 
 const DATETIME_FORMAT = {

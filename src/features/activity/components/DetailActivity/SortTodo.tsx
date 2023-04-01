@@ -38,7 +38,7 @@ const sortData: SortData[] = [
 
 const SortTodo: React.FC<SortTodoProps> = ({ isLoading }) => {
   return (
-    <Dropdown placement='bottom-end' offset={20}>
+    <Dropdown placement='bottom-end' offset={14}>
       <Dropdown.Action>
         <Button
           type='button'

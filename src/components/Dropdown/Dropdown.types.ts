@@ -5,14 +5,16 @@ import {
   Strategy,
 } from '@floating-ui/react-dom-interactions'
 
+import { DismissType, OffsetType } from '@/types/components'
+
 export type DropdownProps = React.HTMLProps<HTMLDivElement> & IDropdownProps
 
 export interface IDropdownProps {
   open?: boolean
   action?: React.Dispatch<React.SetStateAction<any>>
   placement: Placement
-  dismiss?: DropdownDismissType
-  offset?: DropdownOffsetType
+  dismiss?: DismissType
+  offset?: OffsetType
   children: React.ReactNode
 }
 
@@ -27,23 +29,6 @@ export interface DropdownContextData {
   getReferenceProps: (userProps?: React.HTMLProps<Element>) => any
   getFloatingProps: (userProps?: React.HTMLProps<HTMLElement>) => any
 }
-
-export interface DropdownDismissType {
-  enabled?: boolean
-  escapeKey?: boolean
-  referencePointerDown?: boolean
-  outsidePointerDown?: boolean
-  ancestorScroll?: boolean
-  bubbles?: boolean
-}
-
-export type DropdownOffsetType =
-  | number
-  | {
-      mainAxis?: number
-      crossAxis?: number
-      alignmentAxis?: number | null
-    }
 
 export interface IDropdownActionProps {
   children: React.ReactNode | React.ComponentProps<any>

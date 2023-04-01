@@ -1,3 +1,5 @@
+import { PriorityActivityOpt } from './types/constants'
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
 const APP_TITLE = 'To Do List App'
 
@@ -34,6 +36,34 @@ enum PRIORITY_ACTIVITY {
   VeryLow = 'very-low',
 }
 
+const PRIORITY_ACTIVITY_OPTIONS: PriorityActivityOpt[] = [
+  {
+    value: PRIORITY_ACTIVITY.VeryHigh,
+    name: 'Very High',
+    color: 'bg-red-500',
+  },
+  {
+    value: PRIORITY_ACTIVITY.High,
+    name: 'High',
+    color: 'bg-orange-500',
+  },
+  {
+    value: PRIORITY_ACTIVITY.Normal,
+    name: 'Normal',
+    color: 'bg-green-500',
+  },
+  {
+    value: PRIORITY_ACTIVITY.Low,
+    name: 'Low',
+    color: 'bg-blue-500',
+  },
+  {
+    value: PRIORITY_ACTIVITY.VeryLow,
+    name: 'Very Low',
+    color: 'bg-purple-500',
+  },
+]
+
 export {
   ACTIVITY_GROUP,
   API_BASE_URL,
@@ -42,6 +72,7 @@ export {
   DATETIME_FORMAT,
   DEFAULT_ACTIVITY_TITLE,
   PRIORITY_ACTIVITY,
+  PRIORITY_ACTIVITY_OPTIONS,
   QUERY_KEY,
   ROUTE,
 }

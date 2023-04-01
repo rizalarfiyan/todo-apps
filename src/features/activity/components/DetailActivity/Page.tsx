@@ -13,6 +13,7 @@ import { useActivityDetail } from '@features/activity/services'
 import { isNotFound } from '@utils/base'
 
 import Empty from './Empty'
+import SortTodo from './SortTodo'
 import TodoModal from './TodoModal'
 
 const Page = () => {
@@ -70,17 +71,7 @@ const Page = () => {
           </Button>
         </div>
         <div className='flex items-center gap-4'>
-          <Button
-            type='button'
-            variant='solid'
-            className='!px-3'
-            size='lg'
-            isIcon
-            disabled={activityDetail.isLoading}
-            isRounded
-          >
-            <Icon type='sort' className='h-5 w-5 text-gray-600' />
-          </Button>
+          <SortTodo isLoading={activityDetail.isLoading} />
           <Button
             type='button'
             leftIcon={<Icon type='plus' className='mr-2 h-5 w-5' />}

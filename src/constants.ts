@@ -64,7 +64,7 @@ const PRIORITY_ACTIVITY_OPTIONS: PriorityActivityOpt[] = [
   },
 ]
 
-const DEFAULT_ACTIVITY_TITLE = 'New Activity'
+const DEFAULT_ACTIVITY_TITLE = 'Aktifitas Baru'
 const DEFAULT_PRIORITY_ACTIVITY = PRIORITY_ACTIVITY.Normal
 const DEFAULT_PRIORITY_STATUS = true
 const DEFAULT_PAGE_ACTIVITY = 12

@@ -81,7 +81,7 @@ const Page: React.FC = () => {
   return (
     <div className='container'>
       <div className='flex flex-col items-center justify-between gap-6 md:flex-row md:gap-3'>
-        <h2 className='text-4xl font-semibold text-gray-800'>Activity</h2>
+        <h2 className='text-4xl font-semibold text-gray-800'>Aktifitas</h2>
         <Button
           type='button'
           leftIcon={<Icon type='plus' className='mr-2 h-5 w-5' />}

@@ -5,14 +5,14 @@ import axios from '@libs/axios'
 import queryClient from '@libs/react-query'
 
 import { MutationOptions } from '@/types/base'
-import { CreateActivityDTO, CreateActivityRequest } from '@dto/activity'
+import { CreateActivityRequest, CreateUpdateActivityDTO } from '@dto/activity'
 
 import { QUERY_KEY } from '@/constants'
 
 export const createActivity = async ({
   data,
   signal,
-}: AxiosRequestConfig<CreateActivityRequest>): Promise<CreateActivityDTO> => {
+}: AxiosRequestConfig<CreateActivityRequest>): Promise<CreateUpdateActivityDTO> => {
   return await axios
     .post('activity-groups', data, {
       signal,

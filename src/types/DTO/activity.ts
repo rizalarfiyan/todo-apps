@@ -8,6 +8,11 @@ export interface CreateActivityRequest {
   email: string
 }
 
+export interface UpdateActivityRequest {
+  title: string
+  id: string
+}
+
 export interface BaseTodoRequest {
   title: string
   is_active: boolean
@@ -42,7 +47,7 @@ export interface DetailActivityDTO extends ActivityItemDTO {
   todo_items: TodoItemDTO[]
 }
 
-export interface CreateActivityDTO extends ActivityItemDTO {
+export interface CreateUpdateActivityDTO extends ActivityItemDTO {
   email: string
   updated_at: string
 }

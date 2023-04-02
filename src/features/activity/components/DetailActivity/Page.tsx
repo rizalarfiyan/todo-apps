@@ -10,8 +10,13 @@ import Icon from '@components/Icon'
 import Input from '@components/Input'
 
 import useDisclosure from '@hooks/useDisclosure'
+import { useNotification } from '@hooks/useNotification'
 
-import { useActivityDetail, useTodoList } from '@features/activity/services'
+import {
+  useActivityDetail,
+  useTodoList,
+  useUpdateActivity,
+} from '@features/activity/services'
 
 import { TodoItemDTO } from '@dto/activity'
 
@@ -33,13 +38,17 @@ const Page: React.FC = () => {
   const todoList = useTodoList({
     activity_group_id: id as string,
   })
+  const updateActivity = useUpdateActivity()
+  const notification = useNotification()
 
   const [sort, setSort] = useState<SortAction>()
   const [title, setTitle] = useState('')
   const edit = useDisclosure()
 
+  const originalTitle = activityDetail.data?.title || ''
+  const sameTitle = originalTitle === title
   useEffect(() => {
-    setTitle(activityDetail.data?.title || '')
+    setTitle(originalTitle)
   }, [activityDetail.data])
 
   const isEmpty = activityDetail.data?.todo_items.length === 0
@@ -65,15 +74,35 @@ const Page: React.FC = () => {
     )
   }
 
-  const isLoading = activityDetail.isLoading || todoList.isLoading
+  const isLoading =
+    activityDetail.isLoading || todoList.isLoading || updateActivity.isLoading
+
+  const handleUpdateTitle = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (sameTitle && edit.isOpen) {
+      edit.close()
+      return
+    }
+
+    await updateActivity
+      .mutateAsync({
+        data: {
+          id,
+          title,
+        },
+      })
+      .then(() => {
+        notification.success('Activity berhasil diperbarui')
+        edit.close()
+      })
+      .catch(() => {
+        notification.error('Activity gagal diperbarui')
+      })
+  }
 
   const handleEditTitle = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    if (!edit.isOpen) {
-      edit.open()
-      return
-    }
-    edit.close()
+    edit.open()
   }
 
   const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,39 +140,58 @@ const Page: React.FC = () => {
                 message={getResultError(activityDetail.error)}
               />
             ) : edit.isOpen ? (
-              <div className='w-full max-w-3xl'>
-                <Input
-                  as='textarea'
-                  id='activity-name'
-                  name='name'
-                  type='text'
-                  placeholder='Nama activity'
-                  size='lg'
-                  value={title}
-                  limit={255}
-                  onChange={handleChangeTitle}
-                  disabled={isLoading}
-                  className='!h-[90px] !bg-gray-100'
-                />
-              </div>
+              <form
+                onSubmit={handleUpdateTitle}
+                className='flex w-full items-center gap-4'
+              >
+                <div className='w-full max-w-3xl'>
+                  <Input
+                    as='textarea'
+                    id='activity-name'
+                    name='name'
+                    type='text'
+                    placeholder='Nama activity'
+                    size='lg'
+                    value={title}
+                    limit={255}
+                    onChange={handleChangeTitle}
+                    disabled={isLoading}
+                    className='!h-[90px] !bg-gray-100'
+                  />
+                </div>
+                <Button
+                  type='submit'
+                  variant='outline'
+                  isIcon
+                  isRounded
+                  disabled={activityDetail.isLoading}
+                  isLoading={updateActivity.isLoading}
+                >
+                  <Icon
+                    type={
+                      originalTitle === title && edit.isOpen ? 'times' : 'check'
+                    }
+                    className='h-5 w-5 text-gray-600'
+                  />
+                </Button>
+              </form>
             ) : (
-              <h2 className='line-clamp-6 max-w-3xl text-2xl font-semibold sm:line-clamp-5 md:line-clamp-4 lg:line-clamp-3'>
-                {activityDetail.data?.title}
-              </h2>
+              <>
+                <h2 className='line-clamp-6 max-w-3xl text-2xl font-semibold sm:line-clamp-5 md:line-clamp-4 lg:line-clamp-3'>
+                  {activityDetail.data?.title}
+                </h2>
+                <Button
+                  type='button'
+                  variant='outline'
+                  isIcon
+                  isRounded
+                  disabled={isLoading}
+                  onClick={handleEditTitle}
+                >
+                  <Icon type='pencil' className='h-5 w-5 text-gray-600' />
+                </Button>
+              </>
             )}
-            <Button
-              type='button'
-              variant='outline'
-              isIcon
-              isRounded
-              disabled={activityDetail.isLoading}
-              onClick={handleEditTitle}
-            >
-              <Icon
-                type={edit.isOpen ? 'check' : 'pencil'}
-                className='h-5 w-5 text-gray-600'
-              />
-            </Button>
           </div>
         </div>
         <div className='ml-auto flex items-center gap-4 lg:mx-auto'>

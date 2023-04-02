@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React from 'react'
 
 import Alert from '@components/Alert'
@@ -78,7 +79,19 @@ const Page: React.FC = () => {
         ) : (
           <div className='flex flex-wrap items-center justify-center gap-5'>
             {activityList.data.data.map((activity) => {
-              return <Card key={activity.id} activity={activity} />
+              return (
+                <motion.div
+                  key={activity.id}
+                  layout
+                  transition={{
+                    type: 'spring',
+                    damping: 20,
+                    stiffness: 100,
+                  }}
+                >
+                  <Card activity={activity} />
+                </motion.div>
+              )
             })}
           </div>
         )}

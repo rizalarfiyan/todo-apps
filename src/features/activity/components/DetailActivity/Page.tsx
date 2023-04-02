@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -124,7 +125,19 @@ const Page: React.FC = () => {
         ) : (
           <div className='flex flex-col gap-4'>
             {todoDatas.map((todo) => {
-              return <Card key={todo.id} todo={todo} activityGroupId={id} />
+              return (
+                <motion.div
+                  key={todo.id}
+                  layout
+                  transition={{
+                    type: 'spring',
+                    damping: 25,
+                    stiffness: 120,
+                  }}
+                >
+                  <Card todo={todo} activityGroupId={id} />
+                </motion.div>
+              )
             })}
           </div>
         )}

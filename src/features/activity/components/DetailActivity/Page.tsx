@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 
@@ -7,6 +7,7 @@ import Alert from '@components/Alert'
 import Button from '@components/Button'
 import Error from '@components/Error'
 import Icon from '@components/Icon'
+import Input from '@components/Input'
 
 import useDisclosure from '@hooks/useDisclosure'
 
@@ -34,6 +35,13 @@ const Page: React.FC = () => {
   })
 
   const [sort, setSort] = useState<SortAction>()
+  const [title, setTitle] = useState('')
+  const edit = useDisclosure()
+
+  useEffect(() => {
+    setTitle(activityDetail.data?.title || '')
+  }, [activityDetail.data])
+
   const isEmpty = activityDetail.data?.todo_items.length === 0
   const todoDatas = useMemo(() => {
     if (isEmpty) return []
@@ -59,6 +67,20 @@ const Page: React.FC = () => {
 
   const isLoading = activityDetail.isLoading || todoList.isLoading
 
+  const handleEditTitle = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    if (!edit.isOpen) {
+      edit.open()
+      return
+    }
+    edit.close()
+  }
+
+  const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    setTitle(event.target.value)
+  }
+
   const handleCreateTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     modal.open()
@@ -77,7 +99,7 @@ const Page: React.FC = () => {
             <Icon type='back' className='h-5 w-5 lg:h-8 lg:w-8' />
             <span className='block lg:hidden'>Back</span>
           </Link>
-          <div className='flex w-full items-center gap-3'>
+          <div className='flex w-full items-center gap-4'>
             {activityDetail.isLoading ? (
               <div className='flex w-full max-w-3xl flex-col gap-2.5'>
                 <div className='h-6 w-full animate-pulse rounded-md bg-gray-200' />
@@ -88,6 +110,22 @@ const Page: React.FC = () => {
                 variant='danger'
                 message={getResultError(activityDetail.error)}
               />
+            ) : edit.isOpen ? (
+              <div className='w-full max-w-3xl'>
+                <Input
+                  as='textarea'
+                  id='activity-name'
+                  name='name'
+                  type='text'
+                  placeholder='Nama activity'
+                  size='lg'
+                  value={title}
+                  limit={255}
+                  onChange={handleChangeTitle}
+                  disabled={isLoading}
+                  className='!h-[90px] !bg-gray-100'
+                />
+              </div>
             ) : (
               <h2 className='line-clamp-6 max-w-3xl text-2xl font-semibold sm:line-clamp-5 md:line-clamp-4 lg:line-clamp-3'>
                 {activityDetail.data?.title}
@@ -95,12 +133,16 @@ const Page: React.FC = () => {
             )}
             <Button
               type='button'
-              variant='ghost'
+              variant='outline'
               isIcon
               isRounded
               disabled={activityDetail.isLoading}
+              onClick={handleEditTitle}
             >
-              <Icon type='pencil' className='h-5 w-5 text-gray-600' />
+              <Icon
+                type={edit.isOpen ? 'check' : 'pencil'}
+                className='h-5 w-5 text-gray-600'
+              />
             </Button>
           </div>
         </div>

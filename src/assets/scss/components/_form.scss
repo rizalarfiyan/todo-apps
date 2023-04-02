@@ -6,6 +6,22 @@
   @apply mb-1.5 block text-left align-middle text-sm font-medium;
 }
 
+.limit-wrapper {
+  @apply mr-1 flex justify-end;
+
+  .form-group & {
+    @apply mt-2;
+  }
+
+  .text {
+    @apply text-right text-sm text-gray-500;
+
+    &.limited {
+      @apply text-red-500;
+    }
+  }
+}
+
 .form-field {
   @apply relative inline-flex w-full min-w-0 appearance-none items-center rounded-md outline-none transition-colors duration-75 ease-out focus:outline-none;
 

@@ -71,13 +71,8 @@ const Input = forwardRef<HTMLElement, InputProps>((props, ref) => {
         {...rest}
       />
       {hasLimit && (
-        <div className='!mt-2 mr-1 flex justify-end'>
-          <p
-            className={clsx(
-              'text-right text-sm',
-              isLimit ? 'text-red-500' : 'text-gray-600'
-            )}
-          >
+        <div className='limit-wrapper'>
+          <p className={clsx('text', isLimit && 'limited')}>
             {length}/{limit}
           </p>
         </div>

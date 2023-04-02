@@ -46,7 +46,7 @@ const Page: React.FC = () => {
   const edit = useDisclosure()
 
   const originalTitle = activityDetail.data?.title || ''
-  const sameTitle = originalTitle === title
+  const isNoChange = originalTitle === title && edit.isOpen
   useEffect(() => {
     setTitle(originalTitle)
   }, [activityDetail.data])
@@ -79,7 +79,7 @@ const Page: React.FC = () => {
 
   const handleUpdateTitle = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (sameTitle && edit.isOpen) {
+    if (isNoChange) {
       edit.close()
       return
     }
@@ -168,9 +168,7 @@ const Page: React.FC = () => {
                   isLoading={updateActivity.isLoading}
                 >
                   <Icon
-                    type={
-                      originalTitle === title && edit.isOpen ? 'times' : 'check'
-                    }
+                    type={isNoChange ? 'times' : 'check'}
                     className='h-5 w-5 text-gray-600'
                   />
                 </Button>

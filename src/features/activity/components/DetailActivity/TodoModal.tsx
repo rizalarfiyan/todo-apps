@@ -64,7 +64,7 @@ const TodoModal: React.FC<TodoModalProps> = ({
     }))
   }
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (isEdit) {
       await updateTodo
@@ -117,63 +117,68 @@ const TodoModal: React.FC<TodoModalProps> = ({
       isCenter
       isScrollable
     >
-      <ModalHeader>Tambah List Item</ModalHeader>
-      <ModalBody className='gap-10 text-gray-600'>
-        <div className='form-group'>
-          <label htmlFor='list-item-name' className='form-label uppercase'>
-            NAMA LIST ITEM
-          </label>
-          <Input
-            id='list-item-name'
-            name='name'
-            type='text'
-            placeholder='Tambahkan nama list item'
-            size='lg'
-            value={value.title}
-            limit={255}
-            onChange={handleChangeName}
-            disabled={isLoading}
-          />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='select-priority' className='form-label uppercase'>
-            Priority
-          </label>
-          <div className='w-full max-w-[240px]'>
-            <Select
-              id='select-priority'
-              value={value.priority}
-              onChange={handleChangePriority}
+      <form onSubmit={handleSubmit}>
+        <ModalHeader>
+          {isEdit ? 'Edit List Item' : 'Tambah List Item'}
+        </ModalHeader>
+        <ModalBody className='gap-10 text-gray-600'>
+          <div className='form-group'>
+            <label htmlFor='list-item-name' className='form-label uppercase'>
+              NAMA LIST ITEM
+            </label>
+            <Input
+              id='list-item-name'
+              name='name'
+              type='text'
+              placeholder={
+                isEdit ? 'Edit nama list item' : 'Tambahkan nama list item'
+              }
+              size='lg'
+              value={value.title}
+              limit={255}
+              onChange={handleChangeName}
               disabled={isLoading}
-            >
-              {PRIORITY_ACTIVITY_OPTIONS.map((val) => {
-                return (
-                  <Select.Option key={val.value} value={val.value}>
-                    <div className='flex items-center gap-3'>
-                      <div
-                        className={clsx('h-3 w-3 rounded-full', val.color)}
-                      />
-                      <span className='text-gray-600'>{val.name}</span>
-                    </div>
-                  </Select.Option>
-                )
-              })}
-            </Select>
+            />
           </div>
-        </div>
-      </ModalBody>
-      <ModalFooter>
-        <Button
-          type='button'
-          variant='solid'
-          color='primary'
-          isLoading={isLoading}
-          disabled={value.title.trim() === ''}
-          onClick={handleSubmit}
-        >
-          Simpan
-        </Button>
-      </ModalFooter>
+          <div className='form-group'>
+            <label htmlFor='select-priority' className='form-label uppercase'>
+              Priority
+            </label>
+            <div className='w-full max-w-[240px]'>
+              <Select
+                id='select-priority'
+                value={value.priority}
+                onChange={handleChangePriority}
+                disabled={isLoading}
+              >
+                {PRIORITY_ACTIVITY_OPTIONS.map((val) => {
+                  return (
+                    <Select.Option key={val.value} value={val.value}>
+                      <div className='flex items-center gap-3'>
+                        <div
+                          className={clsx('h-3 w-3 rounded-full', val.color)}
+                        />
+                        <span className='text-gray-600'>{val.name}</span>
+                      </div>
+                    </Select.Option>
+                  )
+                })}
+              </Select>
+            </div>
+          </div>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            type='submit'
+            variant='solid'
+            color='primary'
+            isLoading={isLoading}
+            disabled={value.title.trim() === ''}
+          >
+            Simpan
+          </Button>
+        </ModalFooter>
+      </form>
     </Modal>
   )
 }

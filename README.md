@@ -29,6 +29,9 @@ To Do List Apps is a simple Todo App built using React.js, Framer Motion, Floati
 
 ## :rice_scene: Screenshot
 
+![Activity List](./screenshoot/activity-lists.png)
+![Todo List](./screenshoot/todo-lists.png)
+
 ## :dvd: Demo
 
 https://todolistapps.rizalarfiyan.com/
@@ -106,6 +109,27 @@ $ npm run prepare
 
 - 1.0.0
   - Create To do list apps
+    - Activity
+    - Activity load more
+    - Todo
+    - Loading skeleton
+    - Animated card
+    - API caching
+    - Alert component
+    - Button component
+    - Checkbox component
+    - Confirmation component
+    - Dropdown component
+    - Error component
+    - Icon component
+    - Input component
+    - Loading screen component
+    - Modal component
+    - Navigation component
+    - Notification component
+    - Scroll to top component
+    - Select component
+    - Spinner component
 
 ## :memo: License
 

@@ -186,7 +186,7 @@ const Page: React.FC = () => {
                   disabled={isLoading}
                   onClick={handleEditTitle}
                 >
-                  <Icon type='pencil' className='h-5 w-5 text-gray-600' />
+                  <Icon type='pencil' className='h-5 w-5 text-gray-400' />
                 </Button>
               </>
             )}

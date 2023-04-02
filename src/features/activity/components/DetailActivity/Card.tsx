@@ -114,7 +114,7 @@ const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
           <h4
             className={clsx(
               'w-full text-base',
-              todo.is_active && 'text-gray-500 line-through'
+              todo.is_active && 'text-gray-400 line-through'
             )}
           >
             {todo.title}
@@ -127,7 +127,7 @@ const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
             disabled={isDisable}
             onClick={handleUpdateTodo}
           >
-            <Icon type='pencil' className='h-5 w-5 text-gray-600' />
+            <Icon type='pencil' className='h-5 w-5 text-gray-400' />
           </Button>
         </div>
       </div>

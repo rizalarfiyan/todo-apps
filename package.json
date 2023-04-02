@@ -1,14 +1,25 @@
 {
-  "name": "todoapps",
+  "name": "todo-list-apps",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "To Do List Apps is a simple Todo App built using React.js, Framer Motion, Floating UI and styled using Tailwindcss.",
+  "author": "Rizal Arfiyan",
+  "license": "MIT",
+  "homepage": "https://github.com/rizalarfiyan/todo-list-apps#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rizalarfiyan/todo-list-apps.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rizalarfiyan/todo-list-apps/issues"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "npm run prettier && npm run eslint",
     "serve": "npx serve -s dist",
+    "lint": "npm run prettier && npm run eslint",
     "check": "npm run prettier:check && npm run eslint:check",
     "eslint": "eslint --ignore-path .gitignore --max-warnings=0 . --ext .js,.jsx,.ts,.tsx --fix",
     "eslint:check": "eslint1 --ignore-path .gitignore --max-warnings=0 --ext .js,.jsx,.ts,.tsx .",

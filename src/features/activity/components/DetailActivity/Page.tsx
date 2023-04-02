@@ -164,7 +164,7 @@ const Page: React.FC = () => {
                   variant='outline'
                   isIcon
                   isRounded
-                  disabled={activityDetail.isLoading}
+                  disabled={activityDetail.isLoading || title.trim() === ''}
                   isLoading={updateActivity.isLoading}
                 >
                   <Icon

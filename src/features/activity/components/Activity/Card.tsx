@@ -58,13 +58,13 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <div className='w-[280px] rounded-md bg-white p-5 shadow-md'>
-      <div className='h-44'>
-        <Link to={routeReplace(ROUTE.detailActivity, id)}>
+      <Link to={routeReplace(ROUTE.detailActivity, id)}>
+        <div className='h-44'>
           <h3 className='line-clamp-6 text-lg font-semibold text-gray-800'>
             {title}
           </h3>
-        </Link>
-      </div>
+        </div>
+      </Link>
       <div className='mt-2 flex items-center justify-between text-gray-600'>
         <div>{parseDate(created_at)}</div>
         <Button

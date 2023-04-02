@@ -109,12 +109,14 @@ $ npm run prepare
 
 - 1.0.0
   - Create To do list apps
-    - Activity
-    - Activity load more
-    - Todo
+    - Responsive
+    - Mobile Friendly
     - Loading skeleton
     - Animated card
     - API caching
+    - Activity
+    - Activity load more
+    - Todo
     - Alert component
     - Button component
     - Checkbox component

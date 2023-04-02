@@ -1,11 +1,16 @@
 import clsx from 'clsx'
 import React, { forwardRef, useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+
+import ButtonLink from '@components/Button/ButtonLink'
+import Icon from '@components/Icon'
 
 import { NavigationProps } from './Navigation.types'
 
 import { COMPONENT } from '@/constants'
 
 const Navigation = forwardRef<HTMLDivElement, NavigationProps>((props, ref) => {
+  const location = useLocation()
   const { title, links, isFixed, fixedOffset, ...rest } = props
 
   const [isActive, setIsActive] = useState(false)
@@ -20,6 +25,10 @@ const Navigation = forwardRef<HTMLDivElement, NavigationProps>((props, ref) => {
     return () => window.removeEventListener('scroll', onScroll)
   }, [topOffset])
 
+  const titleElement = (
+    <h1 className='text-xl font-semibold md:text-2xl'>{title.toUpperCase()}</h1>
+  )
+
   return (
     <nav
       ref={ref}
@@ -31,12 +40,29 @@ const Navigation = forwardRef<HTMLDivElement, NavigationProps>((props, ref) => {
       {...rest}
     >
       <div className='container flex items-center justify-between text-white'>
-        <h1 className='text-xl font-semibold md:text-2xl'>
-          {title.toUpperCase()}
-        </h1>
+        {location.pathname === '/' ? (
+          titleElement
+        ) : (
+          <Link to='/'>{titleElement}</Link>
+        )}
         <div>
           {(links || []).map((val, idx) => {
-            return <div key={idx}>{val.name}</div>
+            return (
+              <ButtonLink
+                variant={val.variant}
+                color={val.color}
+                to={val.link}
+                target={val.isBlank ? '_blank' : undefined}
+                key={idx}
+                isIcon={!!val?.icon}
+              >
+                {val?.icon ? (
+                  <Icon type={val?.icon} className='h-5 w-5' />
+                ) : (
+                  val.name
+                )}
+              </ButtonLink>
+            )
           })}
         </div>
       </div>

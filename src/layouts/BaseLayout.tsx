@@ -14,8 +14,10 @@ const BaseLayout = (): JSX.Element => {
           isFixed
           links={[
             {
-              link: 'https://google.com/',
-              name: 'Google',
+              link: 'https://github.com/rizalarfiyan/todo-apps',
+              icon: 'github',
+              variant: 'light',
+              isBlank: true,
             },
           ]}
         />

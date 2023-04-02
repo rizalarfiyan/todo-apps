@@ -1,6 +1,12 @@
+import { ButtonVariant } from '@components/Button'
+import { IconType } from '@components/Icon'
+
 export type Links = {
   name?: string
-  icon?: string
+  icon?: IconType
+  isBlank?: boolean
+  variant?: ButtonVariant
+  color?: string
   link: string
 }
 

@@ -111,7 +111,14 @@ const Card: React.FC<CardProps> = ({ todo, activityGroupId }) => {
           </div>
         </div>
         <div className='flex items-center gap-4'>
-          <h4 className='w-full text-base'>{todo.title}</h4>
+          <h4
+            className={clsx(
+              'w-full text-base',
+              todo.is_active && 'text-gray-500 line-through'
+            )}
+          >
+            {todo.title}
+          </h4>
           <Button
             type='button'
             variant='ghost'

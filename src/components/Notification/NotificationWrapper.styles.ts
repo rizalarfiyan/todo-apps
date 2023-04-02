@@ -20,7 +20,7 @@ export const position: NotificationPositionMap<string> = {
 
 export default createMemoClass((props: NotificationWrapperProps) => {
   const className = clsx(
-    'pointer-events-none fixed z-50 max-h-screen w-full overflow-hidden p-4 md:max-w-sm md:p-4',
+    'pointer-events-none fixed z-50 max-h-screen w-full overflow-hidden p-4 sm:max-w-sm sm:p-4',
     getProperty(position, props?.position || NotificationPosition['top-right'])
   )
   return className

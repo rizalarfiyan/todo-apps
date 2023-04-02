@@ -68,38 +68,41 @@ const Page: React.FC = () => {
   return (
     <div className='container'>
       <TodoModal activityGroupId={id} modal={modal} />
-      <div className='flex items-center justify-between gap-3'>
-        <div className='flex w-full items-center gap-3 text-gray-800'>
-          <Link to='/'>
-            <Icon type='back' className='h-8 w-8' />
+      <div className='flex flex-col items-center justify-between gap-6 lg:flex-row lg:gap-3'>
+        <div className='flex w-full flex-col items-center gap-3 text-gray-800 lg:flex-row'>
+          <Link to='/' className='mr-auto flex items-center gap-1 lg:mx-auto'>
+            <Icon type='back' className='h-5 w-5 lg:h-8 lg:w-8' />
+            <span className='block lg:hidden'>Back</span>
           </Link>
-          {activityDetail.isLoading ? (
-            <div className='flex w-full max-w-3xl flex-col gap-2.5'>
-              <div className='h-6 w-full animate-pulse rounded-md bg-gray-200' />
-              <div className='h-6 w-full animate-pulse rounded-md bg-gray-200' />
-              <div className='h-6 w-1/2 animate-pulse rounded-md bg-gray-200' />
-            </div>
-          ) : activityDetail.error ? (
-            <Alert
-              variant='danger'
-              message={getResultError(activityDetail.error)}
-            />
-          ) : (
-            <h2 className='line-clamp-3 max-w-3xl text-2xl font-semibold'>
-              {activityDetail.data?.title}
-            </h2>
-          )}
-          <Button
-            type='button'
-            variant='ghost'
-            isIcon
-            isRounded
-            disabled={activityDetail.isLoading}
-          >
-            <Icon type='pencil' className='h-5 w-5 text-gray-600' />
-          </Button>
+          <div className='flex w-full items-center gap-3'>
+            {activityDetail.isLoading ? (
+              <div className='flex w-full max-w-3xl flex-col gap-2.5'>
+                <div className='h-6 w-full animate-pulse rounded-md bg-gray-200' />
+                <div className='h-6 w-full animate-pulse rounded-md bg-gray-200' />
+                <div className='h-6 w-1/2 animate-pulse rounded-md bg-gray-200' />
+              </div>
+            ) : activityDetail.error ? (
+              <Alert
+                variant='danger'
+                message={getResultError(activityDetail.error)}
+              />
+            ) : (
+              <h2 className='line-clamp-6 max-w-3xl text-2xl font-semibold sm:line-clamp-5 md:line-clamp-4 lg:line-clamp-3'>
+                {activityDetail.data?.title}
+              </h2>
+            )}
+            <Button
+              type='button'
+              variant='ghost'
+              isIcon
+              isRounded
+              disabled={activityDetail.isLoading}
+            >
+              <Icon type='pencil' className='h-5 w-5 text-gray-600' />
+            </Button>
+          </div>
         </div>
-        <div className='flex items-center gap-4'>
+        <div className='ml-auto flex items-center gap-4 lg:mx-auto'>
           <SortTodo isLoading={isLoading} sort={sort} onSort={handleOnSort} />
           <Button
             type='button'
@@ -115,7 +118,7 @@ const Page: React.FC = () => {
           </Button>
         </div>
       </div>
-      <div className='mt-20 pb-20'>
+      <div className='mt-10 pb-6 md:mt-14 md:pb-14'>
         {todoList.isLoading ? (
           <div>Loading....</div>
         ) : todoList.isError ? (

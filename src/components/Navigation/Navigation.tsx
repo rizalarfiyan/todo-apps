@@ -24,14 +24,16 @@ const Navigation = forwardRef<HTMLDivElement, NavigationProps>((props, ref) => {
     <nav
       ref={ref}
       className={clsx(
-        'z-30 w-full bg-blue-500 py-8 shadow-lg transition-all duration-300 ease-in-out',
+        'z-30 w-full bg-blue-500 py-6 shadow-lg transition-all duration-300 ease-in-out md:py-8',
         isFixed && 'fixed',
         isActive && '!py-3'
       )}
       {...rest}
     >
       <div className='container flex items-center justify-between text-white'>
-        <h1 className='text-2xl font-semibold'>{title.toUpperCase()}</h1>
+        <h1 className='text-xl font-semibold md:text-2xl'>
+          {title.toUpperCase()}
+        </h1>
         <div>
           {(links || []).map((val, idx) => {
             return <div key={idx}>{val.name}</div>

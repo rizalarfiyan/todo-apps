@@ -47,7 +47,7 @@ const Page: React.FC = () => {
 
   return (
     <div className='container'>
-      <div className='flex items-center justify-between gap-3'>
+      <div className='flex flex-col items-center justify-between gap-6 md:flex-row md:gap-3'>
         <h2 className='text-4xl font-semibold text-gray-800'>Activity</h2>
         <Button
           type='button'
@@ -62,7 +62,7 @@ const Page: React.FC = () => {
           Tambah
         </Button>
       </div>
-      <div className='mt-20 pb-20'>
+      <div className='mt-10 pb-6 md:mt-14 md:pb-14'>
         {activityList.isLoading ? (
           <div className='flex flex-wrap items-center justify-center gap-5'>
             {Array.from({ length: 12 }).map((_, idx) => {

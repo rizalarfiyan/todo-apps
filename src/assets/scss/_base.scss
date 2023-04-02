@@ -3,5 +3,5 @@ body {
 }
 
 .container {
-  @apply mx-auto w-[calc(100%-20px)] max-w-[1200px] px-2;
+  @apply mx-auto w-[calc(100%-8px)] max-w-[1200px] px-2 md:w-[calc(100%-20px)];
 }

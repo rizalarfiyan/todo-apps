@@ -56,7 +56,7 @@ const NotificationMessage: React.FC<NotificationMessageProps> = ({
   return (
     <div
       className={clsx(
-        'hover:scale-102 visible flex max-h-40 w-full transform cursor-pointer flex-row rounded-md border-l-4 shadow-lg transition-all duration-100',
+        'visible flex max-h-40 w-full transform cursor-pointer flex-row rounded-md border-l-4 shadow-lg',
         getStyle.base
       )}
       onClick={() => onRemove && onRemove(id)}

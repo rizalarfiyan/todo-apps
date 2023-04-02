@@ -51,7 +51,7 @@ const Page: React.FC = () => {
     setTitle(originalTitle)
   }, [activityDetail.data])
 
-  const isEmpty = activityDetail.data?.todo_items.length === 0
+  const isEmpty = todoList.data?.data.length === 0
   const todoDatas = useMemo(() => {
     if (isEmpty) return []
     const todos = todoList.data?.data || ([] as TodoItemDTO[])

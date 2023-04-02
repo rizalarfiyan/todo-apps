@@ -1,3 +1,5 @@
 import Button from './Button'
+import ButtonLink from './ButtonLink'
 export * from './Button.types'
-export default Button
+export * from './ButtonLink.types'
+export default Object.assign(Button, { Link: ButtonLink })

@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React, { forwardRef, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-import ButtonLink from '@components/Button/ButtonLink'
+import Button from '@components/Button'
 import Icon from '@components/Icon'
 
 import { NavigationProps } from './Navigation.types'
@@ -48,7 +48,7 @@ const Navigation = forwardRef<HTMLDivElement, NavigationProps>((props, ref) => {
         <div>
           {(links || []).map((val, idx) => {
             return (
-              <ButtonLink
+              <Button.Link
                 variant={val.variant}
                 color={val.color}
                 to={val.link}
@@ -61,7 +61,7 @@ const Navigation = forwardRef<HTMLDivElement, NavigationProps>((props, ref) => {
                 ) : (
                   val.name
                 )}
-              </ButtonLink>
+              </Button.Link>
             )
           })}
         </div>

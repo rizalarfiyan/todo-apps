@@ -18,9 +18,12 @@ import { getResultError, isNotFound } from '@utils/base'
 
 import Card from './Card'
 import Empty from './Empty'
+import Skeleton from './Skeleton'
 import SortTodo from './SortTodo'
 import TodoModal from './TodoModal'
 import { SortAction } from './types'
+
+import { DEFAULT_PAGE_ACTIVITY_TODO } from '@/constants'
 
 const Page: React.FC = () => {
   const { id } = useParams()
@@ -78,7 +81,6 @@ const Page: React.FC = () => {
             {activityDetail.isLoading ? (
               <div className='flex w-full max-w-3xl flex-col gap-2.5'>
                 <div className='h-6 w-full animate-pulse rounded-md bg-gray-200' />
-                <div className='h-6 w-full animate-pulse rounded-md bg-gray-200' />
                 <div className='h-6 w-1/2 animate-pulse rounded-md bg-gray-200' />
               </div>
             ) : activityDetail.error ? (
@@ -120,7 +122,13 @@ const Page: React.FC = () => {
       </div>
       <div className='mt-10 pb-6 md:mt-14 md:pb-14'>
         {todoList.isLoading ? (
-          <div>Loading....</div>
+          <div className='flex flex-col gap-4'>
+            {Array.from({ length: DEFAULT_PAGE_ACTIVITY_TODO }).map(
+              (_, idx) => {
+                return <Skeleton key={idx} />
+              }
+            )}
+          </div>
         ) : todoList.isError ? (
           <Alert variant='danger' message={getResultError(todoList.error)} />
         ) : isEmpty ? (

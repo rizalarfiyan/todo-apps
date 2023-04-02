@@ -15,7 +15,11 @@ import Card from './Card'
 import Empty from './Empty'
 import Skeleton from './Skeleton'
 
-import { ACTIVITY_GROUP, DEFAULT_ACTIVITY_TITLE } from '@/constants'
+import {
+  ACTIVITY_GROUP,
+  DEFAULT_ACTIVITY_TITLE,
+  DEFAULT_PAGE_ACTIVITY,
+} from '@/constants'
 
 const Page: React.FC = () => {
   const notification = useNotification()
@@ -65,7 +69,7 @@ const Page: React.FC = () => {
       <div className='mt-10 pb-6 md:mt-14 md:pb-14'>
         {activityList.isLoading ? (
           <div className='flex flex-wrap items-center justify-center gap-5'>
-            {Array.from({ length: 12 }).map((_, idx) => {
+            {Array.from({ length: DEFAULT_PAGE_ACTIVITY }).map((_, idx) => {
               return <Skeleton key={idx} />
             })}
           </div>

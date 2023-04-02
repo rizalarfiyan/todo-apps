@@ -3,20 +3,11 @@ import React, { forwardRef, useEffect, useState } from 'react'
 
 import Icon from '@components/Icon'
 
+import { scrollToTop } from '@utils/components'
+
 import { ScrollToTopProps } from './ScrollToTop.types'
 
 import { DEFAULT_SCROLL_TOP_OFFSET } from '@/constants'
-
-const scrollToTop = (smooth = false) => {
-  if (smooth) {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-  } else {
-    document.documentElement.scrollTop = 0
-  }
-}
 
 const ScrollToTop = forwardRef<HTMLButtonElement, ScrollToTopProps>(
   (props, ref) => {

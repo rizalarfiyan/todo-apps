@@ -16,7 +16,10 @@ import { CardProps } from './types'
 
 import { ROUTE } from '@/constants'
 
-const Card: React.FC<CardProps> = ({ activity: { id, title, created_at } }) => {
+const Card: React.FC<CardProps> = ({
+  activity: { id, title, created_at },
+  onSuccessDelete,
+}) => {
   const notification = useNotification()
   const deleteActivity = useDeleteActivity()
   const confirm = useConfirmation()
@@ -40,6 +43,7 @@ const Card: React.FC<CardProps> = ({ activity: { id, title, created_at } }) => {
           })
           .then(() => {
             notification.success('Activity berhasil dihapus')
+            onSuccessDelete?.()
           })
           .catch(() => {
             notification.error('Activity gagal dihapus')

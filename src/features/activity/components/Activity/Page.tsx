@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 
 import Alert from '@components/Alert'
 import Button from '@components/Button'
@@ -10,6 +10,7 @@ import { useNotification } from '@hooks/useNotification'
 import { useActivityList, useCreateActivity } from '@features/activity/services'
 
 import { getResultError } from '@utils/base'
+import { scrollToTop } from '@utils/components'
 
 import Card from './Card'
 import Empty from './Empty'
@@ -28,7 +29,34 @@ const Page: React.FC = () => {
     email: ACTIVITY_GROUP,
   })
 
-  const isEmpty = activityList.data?.data.length === 0
+  const rawActivities = activityList.data?.data || []
+  const isEmpty = rawActivities.length === 0
+  const [page, setPage] = useState(1)
+
+  const dataActivity = useMemo(() => {
+    const nextLimit = page * DEFAULT_PAGE_ACTIVITY
+    const max = rawActivities.length
+    return {
+      data: rawActivities.slice(0, nextLimit < max ? nextLimit : max),
+      max,
+    }
+  }, [page, rawActivities])
+
+  const handleLoadMoreButton = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setPage((prev) => prev + 1)
+    event.preventDefault()
+  }
+
+  const resetPage = () => {
+    setPage(1)
+  }
+
+  const onSuccessDelete = () => {
+    scrollToTop(true)
+    resetPage()
+  }
 
   const handleCrateActivity = async (
     event: React.MouseEvent<HTMLButtonElement>
@@ -43,6 +71,7 @@ const Page: React.FC = () => {
       })
       .then(() => {
         notification.success('Activity berhasil dibuat')
+        resetPage()
       })
       .catch(() => {
         notification.error('Activity gagal dibuat')
@@ -81,23 +110,42 @@ const Page: React.FC = () => {
         ) : isEmpty ? (
           <Empty className='mx-auto h-auto w-full max-w-xl' />
         ) : (
-          <div className='flex flex-wrap items-center justify-center gap-5'>
-            {activityList.data.data.map((activity) => {
-              return (
-                <motion.div
-                  key={activity.id}
-                  layout
-                  transition={{
-                    type: 'spring',
-                    damping: 20,
-                    stiffness: 100,
-                  }}
+          <>
+            <div className='flex flex-wrap items-center justify-center gap-5'>
+              {dataActivity.data.map((activity) => {
+                return (
+                  <motion.div
+                    key={activity.id}
+                    layout
+                    transition={{
+                      type: 'spring',
+                      damping: 20,
+                      stiffness: 100,
+                    }}
+                  >
+                    <Card
+                      activity={activity}
+                      onSuccessDelete={onSuccessDelete}
+                    />
+                  </motion.div>
+                )
+              })}
+            </div>
+            {page * DEFAULT_PAGE_ACTIVITY < dataActivity.max && (
+              <div className='mt-16 flex justify-center'>
+                <Button
+                  type='button'
+                  variant='solid'
+                  color='primary'
+                  size='lg'
+                  isRounded
+                  onClick={handleLoadMoreButton}
                 >
-                  <Card activity={activity} />
-                </motion.div>
-              )
-            })}
-          </div>
+                  Load More
+                </Button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
